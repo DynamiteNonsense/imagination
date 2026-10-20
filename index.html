@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Царство воображения · курс и практикум</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080F; --bg2:#0E0E19; --card:#13131F; --card2:#191928; --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --text:#ECECF4; --muted:#9D9DB5; --dim:#6B6B85;
+  --violet:#8B5CF6; --pink:#EC4899; --cyan:#22D3EE; --amber:#F5B544; --rose:#FB7185; --lime:#A3E635; --blue:#60A5FA; --gold:#FACC15;
+  --acc:var(--violet);
+  --r:20px; --r2:14px;
+  --container:1200px; --gutter:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 600px at 85% -10%,rgba(139,92,246,.20),transparent 60%),radial-gradient(700px 500px at -10% 30%,rgba(236,72,153,.12),transparent 60%),radial-gradient(800px 600px at 50% 120%,rgba(34,211,238,.10),transparent 60%)}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+input,textarea,select{font-family:inherit;font-size:16px}
+.container{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+/* header */
+header.top{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(8,8,15,.72);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;letter-spacing:-.02em;font-size:18px}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:conic-gradient(from 200deg,var(--violet),var(--pink),var(--amber),var(--cyan),var(--violet));display:grid;place-items:center;box-shadow:0 0 24px rgba(139,92,246,.5)}
+.logo-mark span{width:14px;height:14px;border-radius:50%;background:var(--bg)}
+nav.main{display:flex;gap:4px}
+nav.main a{padding:10px 14px;border-radius:10px;text-decoration:none;color:var(--muted);font-weight:500;font-size:15px;transition:.2s}
+nav.main a:hover{color:var(--text);background:rgba(255,255,255,.05)}
+nav.main a.on{color:var(--text);background:rgba(139,92,246,.18)}
+.burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line2);background:var(--card);color:var(--text);font-size:20px}
+.top-progress{height:3px;background:var(--line)}
+.top-progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--violet),var(--pink),var(--amber));transition:width .6s}
+/* views */
+.view{display:none;padding:56px 0 96px;animation:fade .45s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* type */
+h1{font-size:64px;line-height:1.05;letter-spacing:-.035em;font-weight:900}
+h2{font-size:40px;line-height:1.15;letter-spacing:-.03em;font-weight:800;margin-bottom:16px}
+h3{font-size:24px;line-height:1.3;letter-spacing:-.015em;font-weight:700;margin-bottom:10px}
+h4{font-size:18px;font-weight:700;margin-bottom:8px}
+p{color:#C9C9DA;margin-bottom:14px}
+p:last-child{margin-bottom:0}
+.lead{font-size:20px;color:#D2D2E2;max-width:760px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);margin-bottom:16px}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc)}
+.grad{background:linear-gradient(100deg,#fff 0%,#C4B5FD 35%,#F9A8D4 65%,#FCD34D 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+b,strong{color:#fff;font-weight:600}
+.muted{color:var(--muted)}
+/* hero */
+.hero{display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:center;min-height:62vh}
+.hero h1{margin-bottom:24px}
+.hero .lead{margin-bottom:32px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;border-radius:14px;border:0;font-weight:600;font-size:16px;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-main{background:linear-gradient(100deg,var(--violet),var(--pink));color:#fff;box-shadow:0 10px 30px -10px rgba(236,72,153,.6)}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 16px 40px -12px rgba(236,72,153,.75)}
+.btn-ghost{background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--line2)}
+.btn-ghost:hover{background:rgba(255,255,255,.09)}
+.btn-sm{min-height:44px;padding:0 18px;font-size:15px;border-radius:12px}
+.orb{position:relative;aspect-ratio:1;max-width:460px;margin-left:auto;width:100%}
+.orb .ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--line2)}
+.orb .ring:nth-child(2){inset:12%;border-color:rgba(139,92,246,.35)}
+.orb .ring:nth-child(3){inset:24%;border-color:rgba(236,72,153,.35)}
+.orb .core{position:absolute;inset:34%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#C4B5FD 18%,#8B5CF6 45%,#3B0764 100%);box-shadow:0 0 80px rgba(139,92,246,.7),0 0 160px rgba(236,72,153,.35);display:grid;place-items:center;font-weight:900;font-size:22px;letter-spacing:-.02em;color:#fff;text-align:center;animation:pulse 5s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 110px rgba(139,92,246,.85),0 0 200px rgba(236,72,153,.45)}}
+.orb .sat{position:absolute;padding:8px 14px;border-radius:999px;background:var(--card2);border:1px solid var(--line2);font-size:13px;font-weight:600;white-space:nowrap}
+.orbit{position:absolute;inset:0;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* cards & grid */
+.grid{display:grid;gap:var(--gutter)}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:var(--r);padding:28px;position:relative;overflow:hidden}
+.card.glow::after{content:"";position:absolute;width:220px;height:220px;right:-80px;top:-80px;border-radius:50%;background:var(--acc);opacity:.16;filter:blur(50px);pointer-events:none}
+.section{margin-top:72px}
+.section-head{max-width:760px;margin-bottom:32px}
+.principles .card h3{font-size:20px}
+.num{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-weight:800;margin-bottom:16px;background:rgba(255,255,255,.06);color:var(--acc)}
+/* lesson list */
+.lesson-card{display:flex;flex-direction:column;gap:10px;text-decoration:none;transition:transform .25s,border-color .25s;min-height:220px}
+.lesson-card:hover{transform:translateY(-4px);border-color:var(--line2)}
+.lesson-card .tag{font-size:13px;font-weight:700;color:var(--acc);letter-spacing:.06em;text-transform:uppercase}
+.lesson-card h3{margin:0}
+.lesson-card p{font-size:15px;color:var(--muted)}
+.lesson-card .done-badge{position:absolute;top:20px;right:20px;width:28px;height:28px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;font-size:14px;color:transparent}
+.lesson-card.done .done-badge{background:var(--acc);border-color:var(--acc);color:#0b0b12}
+.lesson-card .bar{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--acc),transparent);margin-top:auto;opacity:.8}
+/* lesson layout */
+.lesson{display:grid;grid-template-columns:260px 1fr;gap:48px;align-items:start}
+.side{position:sticky;top:96px;display:flex;flex-direction:column;gap:4px}
+.side a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--muted);font-size:14px;font-weight:500;line-height:1.3}
+.side a:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.side a.on{background:rgba(255,255,255,.06);color:#fff}
+.side a .dot{flex:none;width:10px;height:10px;border-radius:50%;border:2px solid var(--c,var(--violet))}
+.side a.done .dot{background:var(--c,var(--violet))}
+.side .side-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);padding:0 12px 10px}
+.lesson-body{min-width:0;max-width:820px}
+.lesson-body > h1{font-size:52px;margin-bottom:18px}
+.lesson-body h2{font-size:30px;margin-top:56px}
+.lesson-body h2:first-of-type{margin-top:40px}
+.chapters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 8px}
+.chip{font-size:13px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--muted)}
+.idea{border-left:3px solid var(--acc);padding:4px 0 4px 20px;margin:24px 0}
+.idea p{font-size:19px;color:#fff;font-weight:500}
+blockquote{margin:24px 0;padding:22px 24px;border-radius:var(--r2);background:rgba(255,255,255,.035);border:1px solid var(--line);position:relative}
+blockquote p{color:#E4E4F0;font-size:17px;font-style:italic}
+blockquote cite{display:block;margin-top:10px;font-size:13px;color:var(--dim);font-style:normal;font-weight:600}
+blockquote::before{content:"“";position:absolute;top:-14px;left:18px;font-size:60px;line-height:1;color:var(--acc);font-weight:800}
+ul.list{list-style:none;display:flex;flex-direction:column;gap:10px;margin:14px 0}
+ul.list li{position:relative;padding-left:26px;color:#C9C9DA}
+ul.list li::before{content:"";position:absolute;left:4px;top:10px;width:8px;height:8px;border-radius:2px;background:var(--acc);transform:rotate(45deg)}
+.mistake{background:rgba(251,113,133,.07);border:1px solid rgba(251,113,133,.25);border-radius:var(--r2);padding:20px 22px;margin:20px 0}
+.mistake h4{color:var(--rose)}
+.tip{background:rgba(163,230,53,.06);border:1px solid rgba(163,230,53,.22);border-radius:var(--r2);padding:20px 22px;margin:20px 0}
+.tip h4{color:var(--lime)}
+.lesson-nav{display:flex;justify-content:space-between;gap:16px;margin-top:64px;padding-top:32px;border-top:1px solid var(--line);flex-wrap:wrap}
+/* diagrams */
+.diagram{margin:28px 0;padding:28px;border-radius:var(--r);background:radial-gradient(600px 300px at 50% 0%,color-mix(in srgb,var(--acc) 14%,transparent),transparent 70%),var(--card);border:1px solid var(--line)}
+.diagram .cap{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:18px}
+.chain{display:flex;align-items:stretch;gap:0;flex-wrap:nowrap}
+.chain .node{flex:1;text-align:center;padding:16px 10px;border-radius:14px;background:var(--card2);border:1px solid var(--line2);font-weight:600;font-size:15px;position:relative;cursor:pointer;transition:.25s}
+.chain .node small{display:block;font-weight:400;font-size:12px;color:var(--muted);margin-top:4px}
+.chain .node.root{background:linear-gradient(135deg,var(--violet),var(--pink));border:0;color:#fff}
+.chain .node.root small{color:rgba(255,255,255,.8)}
+.chain .node:hover,.chain .node.act{transform:translateY(-3px);border-color:var(--acc)}
+.chain .arr{flex:none;width:28px;display:grid;place-items:center;color:var(--dim);font-size:18px}
+.chain-info{margin-top:18px;padding:16px 18px;border-radius:12px;background:rgba(255,255,255,.04);font-size:15px;color:#D6D6E6;min-height:56px}
+.backflow{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:13px;color:var(--rose);gap:10px}
+.backflow::before,.backflow::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--rose))}
+.backflow::after{background:linear-gradient(90deg,var(--rose),transparent)}
+.times{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:14px;align-items:center}
+.time{border-radius:16px;padding:22px 16px;text-align:center;border:1px dashed var(--line2);color:var(--muted)}
+.time b{display:block;font-size:22px;color:var(--muted);margin-bottom:6px}
+.time.now{border:0;background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(139,92,246,.25));box-shadow:0 0 50px -10px rgba(236,72,153,.6);color:#fff}
+.time.now b{color:#fff;font-size:30px}
+.mirror{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center}
+.mirror .side-box{border-radius:16px;padding:22px;background:var(--card2);border:1px solid var(--line2);min-height:150px}
+.mirror .side-box.in{border-color:color-mix(in srgb,var(--acc) 60%,transparent);box-shadow:inset 0 0 40px -12px var(--acc)}
+.mirror .mid{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.mirror .mid .ln{width:2px;height:40px;background:linear-gradient(var(--acc),transparent)}
+.rooms{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative}
+.room{border-radius:14px;padding:18px 12px;text-align:center;background:var(--card2);border:1px solid var(--line2);cursor:pointer;font-weight:600;font-size:15px;transition:.25s;min-height:84px;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.room small{font-weight:400;font-size:12px;color:var(--muted)}
+.room:hover{border-color:var(--acc)}
+.room.in{background:color-mix(in srgb,var(--acc) 22%,var(--card2));border-color:var(--acc);box-shadow:0 0 30px -8px var(--acc)}
+.room.in::after{content:"Я ЕСМЬ здесь";font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.bars .col h4{font-size:15px;margin-bottom:12px}
+.weekbars{display:flex;align-items:flex-end;gap:6px;height:140px}
+.weekbars i{flex:1;border-radius:6px 6px 2px 2px;background:var(--line2)}
+.weekbars.good i{background:linear-gradient(var(--lime),rgba(163,230,53,.3))}
+.weekbars.bad i{background:linear-gradient(var(--rose),rgba(251,113,133,.3))}
+.weekbars.bad i:not(:first-child){background:rgba(255,255,255,.06)}
+.days{display:flex;gap:6px;margin-top:8px;font-size:11px;color:var(--dim)}.days span{flex:1;text-align:center}
+.hydra-wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.hydra-stage{height:240px;display:grid;place-items:center;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid var(--line);overflow:hidden}
+.monster{font-size:120px;transition:transform .4s,filter .4s,opacity .4s;line-height:1}
+input[type=range]{width:100%;accent-color:var(--acc);height:32px}
+.piano{display:flex;gap:4px;height:120px;margin-top:10px}
+.piano button{flex:1;border-radius:0 0 8px 8px;border:1px solid var(--line2);background:linear-gradient(#fff,#d9d9e8);color:#333;font-size:11px;font-weight:600;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;transition:.15s}
+.piano button.lo{background:linear-gradient(#2a2a3d,#15151f);color:#aaa}
+.piano button:active,.piano button.hit{transform:translateY(3px);filter:brightness(1.2)}
+.piano-out{margin-top:14px;font-size:15px;color:#D6D6E6;min-height:24px}
+.shadow-scene{display:grid;place-items:center;height:230px;position:relative}
+.shadow-scene .man{width:70px;height:150px;border-radius:35px 35px 12px 12px;background:linear-gradient(var(--violet),var(--pink));position:relative;z-index:2;box-shadow:0 0 40px rgba(139,92,246,.6)}
+.shadow-scene .man::before{content:"";position:absolute;top:-52px;left:10px;width:50px;height:50px;border-radius:50%;background:inherit;background:var(--violet)}
+.shadow-scene .shd{position:absolute;bottom:24px;left:50%;width:200px;height:40px;transform:translateX(-10%) skewX(-50deg);background:rgba(0,0,0,.6);filter:blur(6px);border-radius:50%}
+.shadow-scene .lbl{position:absolute;font-size:13px;color:var(--muted);font-weight:600}
+.bridge{display:flex;align-items:center;gap:0;margin-top:6px}
+.bridge .end{flex:none;width:120px;padding:14px;border-radius:12px;text-align:center;font-size:14px;font-weight:600;background:var(--card2);border:1px solid var(--line2)}
+.bridge .end.b{background:linear-gradient(135deg,var(--lime),#4D7C0F);color:#0b0b12;border:0}
+.bridge .span{flex:1;height:14px;border-radius:8px;background:repeating-linear-gradient(90deg,var(--line2) 0 10px,transparent 10px 16px);position:relative}
+.bridge .span .walker{position:absolute;top:-10px;left:0;width:34px;height:34px;border-radius:50%;background:var(--acc);box-shadow:0 0 20px var(--acc);animation:walk 6s ease-in-out infinite}
+@keyframes walk{0%{left:0}90%,100%{left:calc(100% - 34px)}}
+/* quiz */
+.quiz{margin-top:24px;display:flex;flex-direction:column;gap:18px}
+.q{padding:22px;border-radius:var(--r2);background:var(--card);border:1px solid var(--line)}
+.q h4{font-weight:600;font-size:17px;margin-bottom:14px}
+.q .opts{display:flex;flex-direction:column;gap:8px}
+.q .opts button{text-align:left;min-height:48px;padding:12px 16px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.03);color:var(--text);font-size:15px;transition:.2s}
+.q .opts button:hover{background:rgba(255,255,255,.07)}
+.q .opts button.right{border-color:var(--lime);background:rgba(163,230,53,.12)}
+.q .opts button.wrong{border-color:var(--rose);background:rgba(251,113,133,.1)}
+.q .why{display:none;margin-top:12px;font-size:15px;color:var(--muted)}
+.q.answered .why{display:block}
+.score{font-weight:700;color:var(--acc)}
+/* practice */
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter)}
+.tool-card{text-align:left;color:var(--text);border:1px solid var(--line);cursor:pointer;transition:.25s;min-height:190px;display:flex;flex-direction:column;gap:8px}
+.tool-card:hover{transform:translateY(-4px);border-color:var(--line2)}
+.tool-card .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:color-mix(in srgb,var(--acc) 20%,transparent);margin-bottom:8px}
+.tool-card p{font-size:14px;color:var(--muted)}
+.tool-card .src{font-size:12px;color:var(--dim);margin-top:auto}
+.panel{display:none;margin-top:32px}
+.panel.on{display:block;animation:fade .4s}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.field label{font-size:14px;font-weight:600;color:#DADAE8}
+.field .hint{font-size:13px;color:var(--dim)}
+input[type=text],input[type=date],textarea,select{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line2);background:#0C0C16;color:var(--text);outline:none;transition:border .2s,box-shadow .2s}
+textarea{min-height:96px;resize:vertical;line-height:1.5}
+input:focus,textarea:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 20%,transparent)}
+.check-out{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.flag{font-size:14px;padding:10px 14px;border-radius:10px;background:rgba(251,113,133,.1);color:#FECDD3}
+.flag.ok{background:rgba(163,230,53,.1);color:#D9F99D}
+.saved{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.saved .item{padding:18px 20px;border-radius:14px;background:var(--card2);border:1px solid var(--line);position:relative}
+.saved .item .del{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--muted)}
+.saved .item .meta{font-size:12px;color:var(--dim);margin-bottom:6px}
+.saved .item p{font-size:15px;margin-bottom:6px}
+.empty{color:var(--dim);font-size:15px}
+.timer{display:grid;grid-template-columns:320px 1fr;gap:36px;align-items:center}
+.breath{width:280px;height:280px;border-radius:50%;margin:auto;display:grid;place-items:center;position:relative}
+.breath::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc) 55%,transparent),transparent 70%);transform:scale(.7);transition:transform 4s ease-in-out}
+.breath.in::before{transform:scale(1)}
+.breath .t{position:relative;font-size:44px;font-weight:800;letter-spacing:-.02em}
+.breath svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.step-txt{font-size:22px;font-weight:600;color:#fff;min-height:96px;line-height:1.4}
+.step-sub{color:var(--muted);margin-top:8px}
+.qcard{min-height:240px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:24px;padding:40px 24px;border-radius:var(--r);background:radial-gradient(500px 260px at 50% 0%,rgba(250,204,21,.16),transparent 70%),var(--card);border:1px solid var(--line)}
+.qcard .qq{font-size:30px;font-weight:700;letter-spacing:-.02em;max-width:640px;line-height:1.25}
+.qcard .cnt{font-size:13px;color:var(--dim);font-weight:600}
+.notam{display:flex;flex-direction:column;gap:10px}
+.notam .row{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:14px;background:var(--card2);border:1px solid var(--line);opacity:.35;transition:.4s}
+.notam .row.show{opacity:1}
+.notam .row.done{border-color:color-mix(in srgb,var(--acc) 50%,transparent)}
+.notam .row .k{width:30px;height:30px;flex:none;border-radius:50%;border:2px solid var(--acc);display:grid;place-items:center;font-size:13px;font-weight:700}
+.notam .row.done .k{background:var(--acc);color:#0b0b12}
+.vent{position:relative}
+.vent textarea.burn{animation:burn 1.6s forwards}
+@keyframes burn{40%{color:#F59E0B;filter:blur(1px)}100%{color:transparent;filter:blur(8px);opacity:.2}}
+.journal-out{margin-top:16px;padding:22px;border-radius:14px;background:#0C0C16;border:1px solid var(--line2);font-size:18px;line-height:1.9}
+.journal-out .who{color:var(--muted)}
+.journal-out .ans{color:var(--gold);font-weight:700}
+/* tracker */
+.trk-top{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gutter);margin-bottom:28px}
+.stat .v{font-size:40px;font-weight:800;letter-spacing:-.03em}
+.stat .l{font-size:14px;color:var(--muted)}
+.cal{display:grid;grid-template-columns:repeat(10,1fr);gap:8px}
+.cal button{aspect-ratio:1;border-radius:10px;border:1px solid var(--line2);background:var(--card2);color:var(--muted);font-size:13px;font-weight:600;min-width:0;transition:.2s;position:relative}
+.cal button.on{background:linear-gradient(135deg,var(--lime),#65A30D);color:#0b0b12;border:0}
+.cal button.today{outline:2px solid var(--pink);outline-offset:2px}
+.cal button.fut{opacity:.35}
+.seeds{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.seed-btn{width:84px;height:84px;border-radius:50%;border:0;background:radial-gradient(circle at 35% 30%,#D9F99D,var(--lime) 40%,#3F6212);font-size:34px;box-shadow:0 0 40px -6px var(--lime);transition:transform .15s}
+.seed-btn:active{transform:scale(.92)}
+.seed-row{display:flex;flex-wrap:wrap;gap:4px;font-size:22px;max-width:520px}
+/* glossary */
+.gl{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.gl .card{padding:22px 24px}
+.gl .card h4{color:var(--acc)}
+.gl .card p{font-size:15px}
+.search{max-width:420px;margin-bottom:24px}
+/* map */
+.path{display:flex;flex-direction:column;gap:0;position:relative;margin-top:16px}
+.path .stage{display:grid;grid-template-columns:72px 1fr;gap:20px;position:relative;padding-bottom:28px}
+.path .stage::before{content:"";position:absolute;left:35px;top:72px;bottom:0;width:2px;background:linear-gradient(var(--c),transparent)}
+.path .stage:last-child::before{display:none}
+.path .ball{width:72px;height:72px;border-radius:22px;display:grid;place-items:center;font-size:28px;background:color-mix(in srgb,var(--c) 22%,var(--card));border:1px solid color-mix(in srgb,var(--c) 50%,transparent);box-shadow:0 0 40px -14px var(--c)}
+.path .stage h3{margin-bottom:4px}
+.path .stage p{font-size:15px;color:var(--muted);margin-bottom:8px}
+.big-two{display:grid;grid-template-columns:1fr 1fr;gap:var(--gutter);margin-top:28px}
+.big-two .card p.q2{font-size:22px;font-weight:700;color:#fff;line-height:1.35;letter-spacing:-.01em}
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--dim);font-size:14px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--card2);border:1px solid var(--line2);padding:14px 20px;border-radius:12px;font-size:15px;z-index:100;transition:transform .35s;box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.row-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.reveal-btn{margin-top:10px}
+.rewrite{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.rewrite div{padding:14px 16px;border-radius:12px;font-size:15px}
+.rewrite .old{background:rgba(251,113,133,.08);border:1px solid rgba(251,113,133,.2);text-decoration:line-through;color:#FDA4AF}
+.rewrite .new{background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.2);color:#D9F99D;display:none}
+.rewrite.open .new{display:block}
+.objs{display:flex;flex-wrap:wrap;gap:10px}
+.objs button{min-height:44px;padding:0 16px;border-radius:999px;border:1px solid var(--line2);background:var(--card2);color:var(--text);font-size:15px}
+.objs button.act{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 20%,var(--card2))}
+.obj-ans{margin-top:16px;padding:18px;border-radius:12px;background:rgba(255,255,255,.04);font-size:16px;min-height:60px;color:#D6D6E6}
+/* responsive */
+@media (max-width:1100px){
+  h1{font-size:52px}.tools{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(2,1fr)}
+  .lesson{grid-template-columns:1fr}.side{display:none}
+}
+@media (max-width:900px){
+  nav.main{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:rgba(12,12,22,.97);border-bottom:1px solid var(--line);padding:12px var(--gutter) 20px}
+  nav.main.open{display:flex}
+  nav.main a{padding:14px 12px;font-size:17px}
+  .burger{display:grid;place-items:center}
+  .hero{grid-template-columns:1fr;min-height:auto}.orb{max-width:340px;margin:24px auto 0}
+  .g3{grid-template-columns:1fr 1fr}.timer{grid-template-columns:1fr}.hydra-wrap{grid-template-columns:1fr}
+  .trk-top{grid-template-columns:1fr 1fr}
+  .chain{flex-direction:column}.chain .arr{width:auto;height:26px;transform:rotate(90deg)}
+  .rooms{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  :root{--gutter:16px}
+  body{font-size:16px}
+  h1{font-size:38px}h2{font-size:28px}.lesson-body>h1{font-size:34px}.lesson-body h2{font-size:24px}
+  .lead{font-size:18px}
+  .view{padding:32px 0 72px}
+  .g2,.g3,.g4,.tools,.gl,.big-two,.bars{grid-template-columns:1fr}
+  .times{grid-template-columns:1fr}.mirror{grid-template-columns:1fr}.mirror .mid .ln{height:24px}
+  .card{padding:22px}.diagram{padding:20px}
+  .cal{grid-template-columns:repeat(6,1fr)}
+  .qcard .qq{font-size:24px}
+  .rewrite{grid-template-columns:1fr}
+  .bridge .end{width:84px;font-size:12px;padding:10px}
+  .btn{width:100%;justify-content:center}
+  .btns .btn{width:auto;flex:1}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="container top-in">
+    <a class="logo" href="#home"><span class="logo-mark"><span></span></span>Царство воображения</a>
+    <nav class="main" id="nav">
+      <a href="#home" data-v="home">Главная</a>
+      <a href="#map" data-v="map">Карта идей</a>
+      <a href="#lessons" data-v="lessons">Уроки</a>
+      <a href="#practice" data-v="practice">Практикум</a>
+      <a href="#tracker" data-v="tracker">Трекер</a>
+      <a href="#glossary" data-v="glossary">Словарь</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+  <div class="top-progress"><i id="topbar"></i></div>
+</header>
+
+<main>
+<!-- ============ HOME ============ -->
+<section class="view" id="v-home">
+  <div class="container">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Курс по книге Эдварда Арта</div>
+        <h1><span class="grad">Царство воображения</span><br>по полочкам</h1>
+        <p class="lead">Восемь уроков по книге, схемы, проверочные вопросы и практикум. Всё, что автор предлагает делать руками, здесь можно сделать прямо на сайте: собрать сцену, пройти медитацию, вести дневник и отмечать практику по дням.</p>
+        <div class="btns">
+          <a class="btn btn-main" href="#lesson-1">Начать с урока 1 →</a>
+          <a class="btn btn-ghost" href="#practice">Сразу к практике</a>
+        </div>
+      </div>
+      <div class="orb" aria-hidden="true">
+        <div class="ring"></div><div class="ring"></div><div class="ring"></div>
+        <div class="orbit">
+          <div class="sat" style="top:2%;left:40%">состояние</div>
+          <div class="sat" style="top:46%;right:-4%">мысли</div>
+          <div class="sat" style="bottom:3%;left:36%">действия</div>
+          <div class="sat" style="top:46%;left:-6%">события</div>
+        </div>
+        <div class="core">Я ЕСМЬ</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="eyebrow" style="--acc:var(--pink)">На чём стоит книга</div>
+        <h2>Две фразы, к которым сводится всё</h2>
+        <p>Автор говорит прямо: в каждой главе одна и та же мысль показана с другой стороны. Повторы сделаны специально. Иногда одна фраза, сказанная чуть иначе, и даёт то самое «ага».</p>
+      </div>
+      <div class="big-two">
+        <div class="card glow" style="--acc:var(--violet)">
+          <div class="num">1</div>
+          <p class="q2">«Нет никого и ничего, что нужно менять, кроме самого себя».</p>
+          <p class="muted" style="margin-top:12px">Про то, где идёт работа. Люди и обстоятельства остаются в покое, меняется твоё представление о себе.</p>
+        </div>
+        <div class="card glow" style="--acc:var(--pink)">
+          <div class="num" style="color:var(--pink)">2</div>
+          <p class="q2">«Чего бы ты ни желал, верь, что уже имеешь это, и оно будет твоим».</p>
+          <p class="muted" style="margin-top:12px">Про то, как идёт работа. Желание проживается в воображении как свершившийся факт, в настоящем времени.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="eyebrow" style="--acc:var(--cyan)">Как пользоваться сайтом</div>
+        <h2>Четыре шага на каждый урок</h2>
+      </div>
+      <div class="grid g4 principles">
+        <div class="card" style="--acc:var(--violet)"><div class="num">1</div><h3>Прочитай суть</h3><p>Короткий пересказ глав простым языком, цитаты автора и Невилла.</p></div>
+        <div class="card" style="--acc:var(--pink)"><div class="num">2</div><h3>Разбери схему</h3><p>Схемы кликабельные. Нажимай на блоки, двигай ползунки, смотри, что меняется.</p></div>
+        <div class="card" style="--acc:var(--amber)"><div class="num">3</div><h3>Проверь себя</h3><p>Три вопроса в конце урока. После ответа видно пояснение.</p></div>
+        <div class="card" style="--acc:var(--lime)"><div class="num">4</div><h3>Сделай практику</h3><p>Упражнение из урока открывается в практикуме. Записи хранятся в твоём браузере.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="eyebrow" style="--acc:var(--amber)">Программа</div>
+        <h2>Восемь уроков</h2>
+        <p>Порядок продуман так, чтобы каждая следующая тема опиралась на предыдущую. Пройденный урок отмечается галочкой.</p>
+      </div>
+      <div class="grid g4" id="home-lessons"></div>
+    </div>
+
+    <div class="section">
+      <div class="card glow" style="--acc:var(--gold)">
+        <div class="eyebrow" style="--acc:var(--gold)">Главное условие книги</div>
+        <h3>Эту книгу проверяют, читать её мало</h3>
+        <p>Автор предлагает задать себе вопрос: «Действительно ли моя жизнь отражает содержимое моего воображения?» Ответ даёт только опыт. Меняешь воображение, смотришь на результат. Для этого в практикуме есть журнал проверок: что ты вообразил, когда, и что потом произошло.</p>
+        <div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/log">Открыть журнал проверок</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAP ============ -->
+<section class="view" id="v-map">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Карта идей</div>
+      <h1 style="font-size:52px;margin-bottom:16px">Вся книга <span class="grad">на одной странице</span></h1>
+      <p class="lead">Если запутался, возвращайся сюда. Здесь видно, как идеи связаны между собой и в каком уроке разобрана каждая.</p>
+    </div>
+
+    <div class="diagram" style="--acc:var(--violet)">
+      <div class="cap">Схема 1. Откуда берётся опыт</div>
+      <div class="chain" id="mapchain">
+        <div class="node root" data-i="0">Я ЕСМЬ<small>внутренний человек</small></div><div class="arr">→</div>
+        <div class="node" data-i="1">Состояние<small>что я о себе думаю</small></div><div class="arr">→</div>
+        <div class="node" data-i="2">Мысли<small>растут из состояния</small></div><div class="arr">→</div>
+        <div class="node" data-i="3">Действия<small>следуют за мыслями</small></div><div class="arr">→</div>
+        <div class="node" data-i="4">События<small>сценарии жизни</small></div>
+      </div>
+      <div class="backflow">обычно люди пытаются управлять с этого конца</div>
+      <div class="chain-info" id="mapchain-info">Нажми на любой блок, чтобы увидеть пояснение.</div>
+    </div>
+
+    <div class="path" id="map-path"></div>
+  </div>
+</section>
+<!-- ============ LESSONS LIST ============ -->
+<section class="view" id="v-lessons">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Уроки</div>
+      <h1 style="font-size:52px;margin-bottom:16px">Программа курса</h1>
+      <p class="lead">33 главы книги собраны в восемь тем. Под каждой темой указано, какие главы в неё вошли.</p>
+    </div>
+    <div class="grid g2" id="all-lessons"></div>
+  </div>
+</section>
+
+<!-- ============ LESSON VIEW ============ -->
+<section class="view" id="v-lesson">
+  <div class="container lesson">
+    <aside class="side" id="side"></aside>
+    <div>
+
+<!-- L1 -->
+<article class="lesson-body" data-l="1" hidden>
+  <div class="eyebrow">Урок 1 · Основа</div>
+  <h1>Воображение как единственная реальность</h1>
+  <p class="lead">С этой мысли автор начинает книгу. Пока она не уложилась, всё остальное кажется странным. Когда уложилась, остальные главы читаются легко.</p>
+  <div class="chapters"><span class="chip">Вступление</span><span class="chip">Личная реальность</span><span class="chip">Внутренний человек</span><span class="chip">Переживать вместо «манифестировать»</span><span class="chip">«Важно не то, на что ты смотришь…»</span></div>
+
+  <h2>Два мира</h2>
+  <p>Закрой глаза. Ты можешь оказаться на пляже, в другом городе, на кухне у друга. Можешь услышать любые слова от любого человека. Этот мир есть у каждого, и автор называет его <b>личной реальностью</b>. Там ты хозяин: никто не может войти без твоего разрешения, никто не скажет того, чего ты не позволишь.</p>
+  <p>Второй мир тот, что вокруг. Его видят глаза, его трогают руки. Привычка подсказывает, что настоящий он. Невилл Годдард, на чьём учении построена книга, предлагает перевернуть это: настоящий тот, что внутри, а внешний выращивается из него.</p>
+
+  <div class="diagram">
+    <div class="cap">Схема. Как внутри, так и снаружи</div>
+    <div class="mirror">
+      <div class="side-box in"><h4>Внутри</h4><p style="font-size:15px">Сцены, которые ты проживаешь. Как ты себя чувствуешь. Что о себе думаешь. Здесь сажают семена.</p></div>
+      <div class="mid"><span>отражается</span><div class="ln"></div><span style="font-size:22px">⟶</span></div>
+      <div class="side-box"><h4>Снаружи</h4><p style="font-size:15px">Люди, события, деньги, разговоры. Здесь собирают урожай. Менять урожай руками бесполезно, он уже вырос.</p></div>
+    </div>
+  </div>
+
+  <div class="idea"><p>Работа идёт только внутри. Внешний мир автор советует «оставить в покое».</p></div>
+
+  <h2>Внутренний человек и его тень</h2>
+  <p>В книге постоянно звучат два слова: <b>внутренний человек</b> и <b>внешний человек</b>. Внешний это тело, имя, биография. Внутренний это тот, кто живёт в воображении. Он может быть где угодно и кем угодно прямо сейчас.</p>
+  <p>Автор объясняет связь через образ тени. Стоишь на солнце и видишь свою тень на земле. Представь, что тень начинает спорить и доказывать, что она отдельная. Звучит нелепо. Тело в этой картине и есть тень: оно повторяет движения того, кто внутри.</p>
+  <div class="diagram">
+    <div class="cap">Схема. Человек и тень</div>
+    <div class="shadow-scene">
+      <span class="lbl" style="top:14px;left:calc(50% + 50px)">внутренний человек</span>
+      <div class="man"></div><div class="shd"></div>
+      <span class="lbl" style="bottom:2px;left:calc(50% + 70px)">тело, внешний человек</span>
+    </div>
+  </div>
+  <p>Отсюда главный практический вывод урока. Когда ты воображаешь, кто именно переживает сцену? Если ты в ней как внешний человек, появляются вопросы «а получится ли?», «а как?». У внутреннего человека этих вопросов нет: он уже там.</p>
+
+  <h2>Что ты видишь</h2>
+  <blockquote><p>Важно не то, на что ты смотришь, а то, что ты видишь.</p><cite>Генри Торо. Автор советует повторять эту фразу в течение дня</cite></blockquote>
+  <p>Положи перед сотней людей купюру в сто долларов. Для одного это мелочь, для другого аренда за неделю, третий вообще против денег. Купюра одна, а увидели сто разных вещей. Каждый увидел своё представление о себе.</p>
+  <p>Так автор отвечает на частый вопрос «как понять, что я сменил состояние?». Если сменил, ты начинаешь видеть те же вещи по-другому. Люди, которые раньше казались выше тебя, становятся равными. Слова, которые раньше задевали, проходят мимо.</p>
+
+  <h2>Переживать, без «манифестации»</h2>
+  <p>Автор признаётся, что перестал думать словом «манифестировать». Когда ты воображаешь ради результата, внимание остаётся во внешнем мире: ты ждёшь, проверяешь, считаешь дни. Он ставит себе другую цель: просто пережить желаемое в воображении. Ты есть то, что переживаешь. С этой целью уходит много напряжения.</p>
+  <div class="tip"><h4>Практика урока</h4><p>Весь день повторяй себе: «важно то, что я вижу». Вечером вспомни один момент, когда ты отреагировал на что-то сильнее обычного. Спроси себя: какое представление о себе я увидел в этой ситуации? Запиши ответ в журнал проверок.</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/log">Открыть журнал</a></div></div>
+
+  <h2>Проверь себя</h2>
+  <div class="quiz" data-quiz="1"></div>
+</article>
+
+<!-- L2 -->
+<article class="lesson-body" data-l="2" hidden style="--acc:var(--pink)">
+  <div class="eyebrow">Урок 2 · Чувство</div>
+  <h1>Чувство исполненного желания</h1>
+  <p class="lead">Центральная техника Невилла. Звучит просто, а путают её чаще всего. Разберём, что это за чувство и почему всё упирается в настоящее время.</p>
+  <div class="chapters"><span class="chip">Чувство, которого мы ищем</span><span class="chip">«Я ЕСМЬ»: настоящее время</span><span class="chip">«Я лишь жду подтверждения»</span></div>
+
+  <h2>Это принятие факта</h2>
+  <p>Многие думают, что нужно вызвать в себе бурную радость. Невилл объясняет иначе:</p>
+  <blockquote><p>Под чувством я имею в виду принятие факта, что желание исполнено.</p><cite>Невилл Годдард, цитата из книги</cite></blockquote>
+  <p>Эмоции придут сами, как следствие. Сначала ты принимаешь, что это уже так. Будущая мечта становится фактом настоящего, примерно как сейчас для тебя факт, что ты читаешь этот текст.</p>
+  <p>Проще всего войти в это чувство через вопрос: <b>как бы я жил, если бы это уже случилось?</b> Ты бы ничего специально не делал. Просто жил бы с этим. Тебя бы поздравляли, ты бы ходил туда, куда ходят люди с этим, думал бы мысли человека, у которого это есть.</p>
+
+  <h2>Три времени</h2>
+  <p>Автор показывает, что почти все проблемы с чувством связаны со временем. Ум всё время уводит либо назад, либо вперёд.</p>
+  <div class="diagram">
+    <div class="cap">Схема. Где живёт «Я ЕСМЬ»</div>
+    <div class="times">
+      <div class="time"><b>я был</b>прошлое<br><small>«я же такой, у меня такая история»</small></div>
+      <div class="time now"><b>Я ЕСМЬ</b>настоящее<br><small>единственное время, в котором что-то создаётся</small></div>
+      <div class="time"><b>я буду</b>будущее<br><small>«а вдруг снова…», «когда-нибудь»</small></div>
+    </div>
+  </div>
+  <p>Пример из книги. Человек в тюрьме воображает себя свободным. Ум тут же шепчет: «а что если меня снова посадят?» Это будущее. Или: «я же преступник». Это прошлое. Если он остаётся с чувством «я свободен» прямо сейчас, ничто снаружи не может ему помешать.</p>
+  <p>То же про аффирмации. Можно повторять слова, а чувствовать их как будущее. Тогда фраза пустая. Сила появляется, когда ты чувствуешь её как то, что есть сейчас.</p>
+
+  <div class="diagram">
+    <div class="cap">Мини-тренажёр. Переведи фразу в настоящее</div>
+    <div id="tense-drill"></div>
+  </div>
+
+  <h2>«Я лишь жду подтверждения»</h2>
+  <p>Ты вообразил кольцо на пальце, почувствовал его вес. Открываешь глаза, а кольца нет. Внешний человек говорит: «не сработало». Автор предлагает смотреть так: кто носит кольцо? Внутренний человек. Он уже женат. Внешнее отстаёт, и оно лишь подтвердит то, что уже есть.</p>
+  <p>Отсюда спокойствие. Завтра может не принести подтверждения, и послезавтра тоже. Ты всё равно продолжаешь жить как тот, у кого это есть.</p>
+  <div class="mistake"><h4>Частая ошибка</h4><p>Воображать сцену и сразу проверять мир: пришло или нет. Каждая такая проверка возвращает тебя в «я буду». Внимание снова уходит на нехватку.</p></div>
+  <div class="tip"><h4>Практика урока</h4><p>Собери свою первую сцену в конструкторе. Он подсветит слова, которые уводят из настоящего времени.</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/scene">Конструктор сцены</a></div></div>
+
+  <h2>Проверь себя</h2>
+  <div class="quiz" data-quiz="2"></div>
+</article>
+
+<!-- L3 -->
+<article class="lesson-body" data-l="3" hidden style="--acc:var(--cyan)">
+  <div class="eyebrow">Урок 3 · Состояния</div>
+  <h1>Мир состояний</h1>
+  <p class="lead">Почему одни и те же события кого-то ломают, а кого-то оставляют спокойным. И почему ты никогда не застреваешь навсегда.</p>
+  <div class="chapters"><span class="chip">Мир состояний</span><span class="chip">Вы не состояние</span><span class="chip">История, которую мы себе рассказываем</span><span class="chip">В воображении нет наказаний</span></div>
+
+  <h2>Что такое состояние</h2>
+  <p>Состояние это убеждение о себе, которое ты ощущаешь как факт. «Я неудачник», «я в безопасности», «меня любят». Вместе с состоянием приходит готовый пакет: поведение, мысли, способ видеть мир.</p>
+  <p>Автор приводит пример с концертом. Ты пришёл как зритель и ведёшь себя как зритель. Если бы ты пришёл как артист, ты бы держался иначе, иначе смотрел бы на зал, иначе думал. Здание то же, состояние другое.</p>
+  <p>И ещё одно наблюдение: знаменитость и человек, который ночует под мостом, сделаны из одного материала. Любое состояние доступно каждому. Разница в том, какое из них ты занимаешь.</p>
+
+  <div class="diagram">
+    <div class="cap">Интерактив. Ты переходишь из комнаты в комнату</div>
+    <div class="rooms" id="rooms"></div>
+    <div class="chain-info" id="room-info">Нажми на любую комнату. Обрати внимание: точка «Я ЕСМЬ» переходит, а сама остаётся той же.</div>
+  </div>
+
+  <h2>Цепочка причин</h2>
+  <p>В главе «В воображении нет наказаний» автор описывает, как люди ищут, где управлять жизнью. Сначала пытаются управлять событиями. Не выходит. Переходят к людям. Тоже не выходит. Берутся за свои действия и оказываются в войне с самими собой. Потом за мысли, а мысли слишком хаотичны. Наконец замечают, что мысли растут из состояния.</p>
+  <div class="diagram">
+    <div class="cap">Схема. Нажимай на блоки</div>
+    <div class="chain" id="chain2">
+      <div class="node root" data-i="0">Я ЕСМЬ<small>причина</small></div><div class="arr">→</div>
+      <div class="node" data-i="1">Состояние</div><div class="arr">→</div>
+      <div class="node" data-i="2">Мысли</div><div class="arr">→</div>
+      <div class="node" data-i="3">Действия</div><div class="arr">→</div>
+      <div class="node" data-i="4">События</div>
+    </div>
+    <div class="chain-info" id="chain2-info">Нажми на блок.</div>
+  </div>
+  <p>Но и состояние ещё не причина. Причина стоит за ним: тот, кто выбирает состояние. Это «Я ЕСМЬ», безымянное воображение, которое само состоянием не является.</p>
+
+  <h2>Ты не состояние</h2>
+  <p>Это самое утешительное место книги. Тебе пишут: «я застрял, как сменить состояние?» Автор отвечает: ты и так им не являешься. Ты его занимаешь, как занимаешь комнату. Значит, ты и не мысли, и не чувства, которые оно приносит.</p>
+  <ul class="list">
+    <li>Пришло тяжёлое чувство. Скажи себе: «у меня есть чувство». Фраза «я это чувство» неправда.</li>
+    <li>Мысль ранит? Дело в состоянии. Та же мысль у человека в другом состоянии вызовет улыбку.</li>
+    <li>Старое воспоминание о позоре всё ещё задевает? Значит, часть тебя ещё живёт в стыде. Если бы ты полностью принял уверенность, воспоминание бы не трогало.</li>
+  </ul>
+
+  <h2>Куда ты возвращаешься</h2>
+  <p>Пример со спортивным матчем. Твоя команда забила гол. Ты вскочил, кричишь, радуешься. Через минуту ты возвращаешься к себе обычному. К кому именно? К тому, кто себя не уважает? Или к тому, кто себя ценит?</p>
+  <div class="idea"><p>Проявляется то состояние, в которое ты постоянно возвращаешься. Автор называет его внутренним домом.</p></div>
+  <p>С рождения нам выдают ярлыки и историю о нас самих. По этой истории принимаются решения, и со временем она кажется судьбой. Невилл в «Силе осознания» пишет, что рока нет. Ты соткан из выборов, и «Я ЕСМЬ» тоже выбор.</p>
+  <div class="tip"><h4>Практика урока</h4><p>Пройди медитацию «Я не есть». Она снимает привычные ярлыки один за другим. После неё переходить в новое состояние заметно легче.</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/notam">Медитация «Я не есть»</a></div></div>
+
+  <h2>Проверь себя</h2>
+  <div class="quiz" data-quiz="3"></div>
+</article>
+
+<!-- L4 -->
+<article class="lesson-body" data-l="4" hidden style="--acc:var(--amber)">
+  <div class="eyebrow">Урок 4 · Причина</div>
+  <h1>Найди причину</h1>
+  <p class="lead">В личной реальности стоит искать одну вещь. Виноватых там нет. Есть причина, и это ты.</p>
+  <div class="chapters"><span class="chip">Найдите причину</span><span class="chip">Внутренний критик</span><span class="chip">Станьте тем, чем хотите видеть других</span><span class="chip">Бог играет все роли</span><span class="chip">«Кто я?»</span></div>
+
+  <h2>Причина больше сна</h2>
+  <p>Логика автора короткая. Если я причина своего опыта, а сейчас я переживаю мысль, значит, я причина и этой мысли. Тот, кто создал сон, сильнее сна. Творцу незачем бояться собственного творения.</p>
+  <p>Отсюда новый взгляд на страх. Пришёл страх, ищи его причину. Пришла мысль, ищи, кто её создаёт. Каждый раз ответ один.</p>
+  <p>Пример из книги: человек сказал автору неприятную вещь. Вечером тот лёг и переписал разговор в воображении. Через несколько дней собеседник позвонил и произнёс именно те слова, которые были в новой версии. С тех пор в таких ситуациях автор ищет только причину.</p>
+
+  <h2>Внутренний критик и гидра</h2>
+  <p>Автору снился повторяющийся кошмар: мумия, с которой он дрался. Удары проходили насквозь. Всё изменилось, когда он перестал драться и просто стал бесстрашным. Мумия начала уменьшаться и исчезла.</p>
+  <p>Тот же сюжет в мифе о Геракле. Отрубаешь гидре голову, вырастают две. Геракл прижигал шеи огнём. В мифах огонь часто означает снятое внимание: то, от чего ты убрал внимание, сгорает.</p>
+  <div class="diagram">
+    <div class="cap">Интерактив. Двигай ползунок внимания</div>
+    <div class="hydra-wrap">
+      <div class="hydra-stage"><div class="monster" id="monster">🐉</div></div>
+      <div>
+        <label for="att" style="font-weight:600">Внимание к страху: <span id="att-v">100</span>%</label>
+        <input type="range" id="att" min="0" max="100" value="100">
+        <p id="att-t" style="margin-top:12px;font-size:15px">Ты борешься с каждой мыслью по отдельности. На месте одной вырастают две.</p>
+      </div>
+    </div>
+  </div>
+  <blockquote><p>Если ты не живёшь в любви, ты будешь порабощён страхом.</p><cite>Уильям Блейк</cite></blockquote>
+  <p>Внутренний критик точно знает, как тебя остановить, потому что он и есть ты. Автор говорит: в воображении ответственность равна силе. Ты оказался настолько сильным, что сам создал этого критика. Возможно, когда-то он был полезен. Сейчас жить без этой занозы гораздо лучше.</p>
+
+  <h2>То, чего ты ждёшь от других</h2>
+  <p>Одна из мыслей, которую автор считает самой важной: <b>то, чего ты хочешь от других, на самом деле ты хочешь дать себе</b>. Мы ждём, чтобы кто-то первым увидел нас умными, красивыми, достойными. Только потом разрешаем себе так о себе думать. Это условие, и его можно снять.</p>
+  <p>Рядом идея «Бог играет все роли». Когда ты принимаешь новое «Я ЕСМЬ», люди вокруг перестраиваются под него. Автор говорит в микрофон и подразумевает, что его слушают. Он не гадает. Так же подразумевается и новое состояние: без проверок.</p>
+  <div class="tip"><h4>Практика урока</h4><p>Упражнение «От других к себе». Запиши, чего ты ждёшь от конкретных людей, и переведи каждый пункт в то, что даёшь себе сам.</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/give">«От других к себе»</a><a class="btn btn-ghost btn-sm" href="#practice/rewrite">Переписать разговор</a></div></div>
+
+  <h2>Вопрос «Кто я?»</h2>
+  <blockquote><p>Человек вечно смотрит на свой мир и спрашивает: что нужно сделать? что произойдёт? Ему следовало бы спросить себя: кто я? Каково моё нынешнее представление о себе?</p><cite>Невилл Годдард</cite></blockquote>
+  <p>Пережитое прошлое когда-то было воображаемым будущим. А то будущее определялось представлением о себе. Хочешь другое будущее? Есть один путь: поменять представление сейчас.</p>
+
+  <h2>Проверь себя</h2>
+  <div class="quiz" data-quiz="4"></div>
+</article>
+<!-- L5 -->
+<article class="lesson-body" data-l="5" hidden style="--acc:var(--rose)">
+  <div class="eyebrow">Урок 5 · Помехи</div>
+  <h1>Условия и голос рассудка</h1>
+  <p class="lead">Две вещи, которые чаще всего выбивают из сцены. Обе выглядят разумно, поэтому их трудно заметить.</p>
+  <div class="chapters"><span class="chip">Без условий</span><span class="chip">Не обусловливайте желания</span><span class="chip">Отвергнуто чувствами</span><span class="chip">Личное бессилие</span><span class="chip">Вступление: страх и сцены</span></div>
+
+  <h2>Что такое условие</h2>
+  <p>Условие появляется, когда ты уходишь от желания в другое время. Берёшь мечту и пристёгиваешь к ней будущее: «сначала надо накопить». Или прошлое: «с моей историей это невозможно». Пока ты рядом с желанием в настоящем, условий нет.</p>
+  <div class="diagram">
+    <div class="cap">Четыре вида условий. Нажми, чтобы увидеть, как их снимает автор</div>
+    <div class="rewrite" style="grid-template-columns:1fr" id="conds"></div>
+  </div>
+  <p>Пример из книги. Ты строишь дом, стройка займёт полгода. Ум говорит: въедешь через шесть месяцев. Внутренний человек может спать в этом доме сегодня ночью. Ему ничто не мешает.</p>
+  <p>Ещё одно условие касается прошлого. В воображении тебя уже простили: раз оно позволяет тебе вообразить себя свободным, значит, оно тебя простило. Кто тогда может сказать, что ты не прощён?</p>
+
+  <h2>Голос рассудка</h2>
+  <p>Автор долго не мог понять, почему ему так трудно принимать желания. Потом увидел: он сам себя «отговаривал». Рассудок задаёт вопросы, на которые нет ответа: как это случится? когда? кто поможет? а если нет?</p>
+  <div class="diagram">
+    <div class="cap">Ловец рассудка. Выбери вопрос, который сейчас звучит в голове</div>
+    <div class="objs" id="objs"></div>
+    <div class="obj-ans" id="obj-ans">Ответ появится здесь.</div>
+  </div>
+  <p>Правильный ответ на все эти вопросы: <b>«я не знаю»</b>. И это хорошая новость. Автор замечал, что вещи, которые он воображал, приходили путями, которые он сам никогда бы не придумал. Мост уже достроен, тебе остаётся по нему пройти.</p>
+  <div class="diagram">
+    <div class="cap">Схема. Мост уже построен</div>
+    <div class="bridge"><div class="end">ты сейчас</div><div class="span"><div class="walker"></div></div><div class="end b">желание</div></div>
+    <p style="font-size:14px;margin-top:14px" class="muted">Средства продумывать не нужно. Трудные участки на мосту бывают, но сам мост закончен.</p>
+  </div>
+
+  <h2>Личное бессилие</h2>
+  <p>Так называется глава в «Силе осознания» Невилла. Внешний человек честно признаёт: «Я ничего не могу творить сам от себя». В Притчах сказано: не полагайся на разум твой. Автор читает это как разговор внутреннего человека с внешним. Внешний сдаётся и перестаёт вычислять. Внутренний принимает. Когда голос рассудка замолкает, легко падать в спокойное, почти блаженное состояние.</p>
+
+  <h2>Страх ломает сцены</h2>
+  <p>Во вступлении автор описывает, что происходит, если во время сцены пришла тревога. Ты начинаешь тревожиться, и сцена разваливается. Неуверенность буквально выталкивает тебя из сна. Поэтому первым делом стоит почувствовать себя в безопасности внутри собственного ума. Это и делает воображение полезным.</p>
+  <div class="tip"><h4>«Гневайтесь, и не согрешайте»</h4><p>Злость бывает, и подавлять её незачем. Автор советует выпустить пар, а потом вернуться к цели. Грехом он называет промах мимо цели. В практикуме есть упражнение для этого.</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/vent">Выпустить пар</a></div></div>
+
+  <h2>Проверь себя</h2>
+  <div class="quiz" data-quiz="5"></div>
+</article>
+
+<!-- L6 -->
+<article class="lesson-body" data-l="6" hidden style="--acc:var(--lime)">
+  <div class="eyebrow">Урок 6 · Принятие</div>
+  <h1>Принятие</h1>
+  <p class="lead">Автор пришёл к выводу, что у людей не так много проблем. По сути она одна, и это принятие.</p>
+  <div class="chapters"><span class="chip">Внутренний человек: вопрос принятия</span><span class="chip">Кто желает? Радикальное принятие</span><span class="chip">Все желания из одного источника</span><span class="chip">Одна субстанция</span><span class="chip">Закон бытия</span><span class="chip">Искупительные мысли</span></div>
+
+  <h2>Дело в тебе</h2>
+  <p>Прокручивать сцену миллион раз, засыпать «в идеальном чувстве», следить, чтобы не проскочило ни одной плохой мысли, «впечатывать» что-то в подсознание. Автор считает всё это лишним. Ты ведь знаешь, когда пытаешься себя обмануть. Нужно одно: принять, что ты внутренний человек, а тело его тень.</p>
+  <p>Принятие, по Невиллу, тоже ближе к сдаче, чем к эмоции. Это как сказать: «теперь это моё». Эмоции поднимаются уже после.</p>
+
+  <h2>Медитация «да»</h2>
+  <p>Её автор предлагает в главе «Кто желает?». Говоришь себе одно слово: «да». Воображаешь то, чего хочешь, и отвечаешь на это настоящим «да». Без споров с собой, без вопросов. Вопросы как раз и мешают.</p>
+  <div class="tip"><h4>Попробуй сейчас</h4><p>Интерактивная медитация «да» займёт пару минут.</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/yes">Медитация «да»</a></div></div>
+
+  <h2>Один источник</h2>
+  <p>Автору одни желания казались лёгкими, другие огромными. Пока он не увидел, что все они бьют из одного места. Он сравнивает воображение с фортепиано: есть высокие ноты и низкие, а инструмент один.</p>
+  <div class="diagram">
+    <div class="cap">Интерактив. Нажимай на клавиши</div>
+    <div class="piano" id="piano"></div>
+    <div class="piano-out" id="piano-out">Каждая клавиша это состояние. Звук разный, инструмент один.</div>
+  </div>
+  <blockquote><p>Я умерщвляю и оживляю, Я поражаю и Я исцеляю.</p><cite>Второзаконие, цитата из главы «Одна субстанция»</cite></blockquote>
+  <p>Когда автор понял, что покой и тревога сделаны из одного материала, исчезло чувство «я недостоин своих хороших мыслей». Хорошая мысль сделана из того же, что плохая. Значит, право на неё у тебя есть.</p>
+
+  <h2>Закон бытия</h2>
+  <p>«Закон притяжения» и «закон допущения» автору кажутся неточными словами. Он предпочитает выражение Невилла из книги «Твоя вера твоё богатство»: «Я закон бытия, и кроме меня нет закона». С бытием не возникает вопроса «правильно ли я притягиваю». Ты либо есть это внутри, либо нет. И ты это знаешь.</p>
+  <p>Проверочный вопрос из главы: можешь ли ты честно сказать, что другого творца, кроме воображения, нет? Если да, его можно испытывать всерьёз. Если нет, ты пока с ним играешь, и это нормально.</p>
+
+  <h2>Вы прощены</h2>
+  <blockquote><p>Неважно, что вы когда-либо совершили. Я скажу: вы прощены. Бог это ваше собственное чудесное человеческое воображение, и с ним возможно всё. Оно не спорит. Не указывает на ваше прошлое. Оно само играло те роли.</p><cite>Невилл Годдард, глава «Искупительные мысли»</cite></blockquote>
+  <p>Автор честно пишет: когда он допускал для себя что-то хорошее, у него резко учащалось сердцебиение, сжимался живот, появлялось чувство «мне нельзя это иметь». Если у тебя так же, это нормально. Всё, что внутри тебя, твоё. Чьим ещё ему быть?</p>
+  <div class="idea"><p>Невилл говорил: «поддайтесь чувству исполненного желания». Для автора «поддаться» и «принять» означают одно и то же.</p></div>
+
+  <h2>Проверь себя</h2>
+  <div class="quiz" data-quiz="6"></div>
+</article>
+
+<!-- L7 -->
+<article class="lesson-body" data-l="7" hidden style="--acc:var(--blue)">
+  <div class="eyebrow">Урок 7 · Техника</div>
+  <h1>Как воображать: по шагам</h1>
+  <p class="lead">Самый практический урок. Здесь собрано всё, что автор говорит о самом процессе: шаги, частота, проверка и эксперименты.</p>
+  <div class="chapters"><span class="chip">Как я воображаю</span><span class="chip">Практика: частота</span><span class="chip">История о сыне Невилла</span><span class="chip">Эксперимент с уточкой</span><span class="chip">Вступление</span></div>
+
+  <h2>Пять шагов автора</h2>
+  <div class="path" style="margin-top:8px">
+    <div class="stage" style="--c:var(--blue)"><div class="ball">1</div><div><h3>Помни цель</h3><p>Цель одна: стать тем, кем хочешь быть, в воображении. Внешний результат сюда не входит.</p></div></div>
+    <div class="stage" style="--c:var(--violet)"><div class="ball">2</div><div><h3>Выбери, кем быть</h3><p>Чем угодно. Своё желание, без оглядки на то, что «положено» хотеть.</p></div></div>
+    <div class="stage" style="--c:var(--pink)"><div class="ball">3</div><div><h3>Помести себя в сцену</h3><p>Пример автора: он в Нью-Йорке и хочет в Лас-Вегас. Закрывает глаза и оказывается в лобби отеля MGM Grand. Видит людей, очередь у стойки, пол.</p></div></div>
+    <div class="stage" style="--c:var(--amber)"><div class="ball">4</div><div><h3>Отождествись с внутренним человеком</h3><p>«Я в Лас-Вегасе». Если я внутренний человек, это факт. Отрицать его было бы бредом.</p></div></div>
+    <div class="stage" style="--c:var(--lime)"><div class="ball">5</div><div><h3>Никаких вопросов</h3><p>Нет «как», он уже там. Нет «когда», он уже здесь. Нет «а если не сработает», для «Я ЕСМЬ» уже сработало.</p></div></div>
+  </div>
+  <p>Для других желаний принцип тот же. Хочешь быть счастливо женатым: посмотри на кольцо и почувствуй гордость за партнёра. Цена одна: поверишь ли ты в то, что вообразил.</p>
+  <div class="tip"><h4>Сделай это сейчас</h4><p>Пятиминутная сессия с таймером проведёт по этим шагам.</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/session">Начать сессию</a><a class="btn btn-ghost btn-sm" href="#practice/scene">Сначала собрать сцену</a></div></div>
+
+  <h2>Частота важнее длительности</h2>
+  <p>Автор сравнивает с тренажёрным залом. Если сходить один раз и заниматься десять часов, тело не изменится. Если ходить каждый день понемногу, изменится. С воображением так же.</p>
+  <div class="diagram">
+    <div class="cap">Схема. Одна неделя</div>
+    <div class="bars">
+      <div class="col"><h4 style="color:var(--rose)">Один раз, но долго</h4><div class="weekbars bad"><i style="height:100%"></i><i style="height:4%"></i><i style="height:4%"></i><i style="height:4%"></i><i style="height:4%"></i><i style="height:4%"></i><i style="height:4%"></i></div><div class="days"><span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>вс</span></div></div>
+      <div class="col"><h4 style="color:var(--lime)">Понемногу каждый день</h4><div class="weekbars good"><i style="height:30%"></i><i style="height:34%"></i><i style="height:28%"></i><i style="height:36%"></i><i style="height:32%"></i><i style="height:30%"></i><i style="height:35%"></i></div><div class="days"><span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>вс</span></div></div>
+    </div>
+  </div>
+  <ul class="list">
+    <li>Сажай много семян в день. Каждый раз, когда вспомнил о желании, коротко побудь в нём.</li>
+    <li>Чем меньше смотришь на внешний мир в поисках результата, тем больше увидишь.</li>
+    <li>Относись к этому легко. Вообразил что-то прекрасное, доверился и перешёл к следующему делу.</li>
+  </ul>
+  <div class="row-btns"><a class="btn btn-ghost btn-sm" href="#tracker">Открыть трекер частоты</a></div>
+
+  <h2>Подтверждение и молчание</h2>
+  <p>История о сыне Невилла. Бывшая жена очернила его в глазах сына, мальчик держался в стороне. Невилл стал воображать, что сын рядом, его рука лежит у мальчика на затылке. К двенадцатому дню рождения сына жена сама позвонила: «Он теперь мужчина, двоим мужчинам у меня места нет. Забирай».</p>
+  <p>Автора здесь больше всего зацепило, что Невилл игнорировал всё, что о нём говорили. Имя человека это «Я ЕСМЬ», и важно только то, что ты сам о себе утверждаешь. Из этой же истории два правила:</p>
+  <ul class="list">
+    <li><b>Никому не рассказывай.</b> Ни друзьям, ни родным. Допусти это в воображении и молчи.</li>
+    <li><b>Хочешь подтверждения, посмотри внутрь.</b> Мысленно увидь людей, которые ведут себя с тобой так, будто новое уже правда.</li>
+  </ul>
+
+  <h2>Проверочный эксперимент</h2>
+  <p>Невилл давал «эксперимент с лестницей»: каждый вечер по пять минут воображать, как взбираешься по приставной лестнице и спускаешься, а днём повторять «я не буду взбираться на лестницу». Люди потом действительно оказывались на лестницах.</p>
+  <p>Автор выбрал резиновую уточку, потому что никогда с ними не сталкивался. Вытянул воображаемую правую руку, положил в неё уточку, почувствовал резину под пальцами, увидел оранжевый клюв и маленький глаз. Делал это минут пять, в один день. Примерно через две недели уточка появилась в его жизни.</p>
+  <div class="tip"><h4>Твой эксперимент</h4><p>Выбери предмет, который тебе обычно не попадается. В практикуме есть карточка эксперимента с датой старта и счётчиком дней.</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/duck">Начать эксперимент</a></div></div>
+
+  <h2>Проверь себя</h2>
+  <div class="quiz" data-quiz="7"></div>
+</article>
+
+<!-- L8 -->
+<article class="lesson-body" data-l="8" hidden style="--acc:var(--gold)">
+  <div class="eyebrow">Урок 8 · Глубина</div>
+  <h1>Кто воображает: Бог внутри</h1>
+  <p class="lead">Последние главы книги отвечают на вопрос, который стоит за всеми техниками. С какой позиции ты воображаешь?</p>
+  <div class="chapters"><span class="chip">Кто воображает?</span><span class="chip">Невилл и Библия</span><span class="chip">Медитация снятия ярлыков</span><span class="chip">Дневниковая запись</span><span class="chip">Зачем отцепляться</span><span class="chip">Заключительная медитация</span></div>
+
+  <h2>Имя как костюм</h2>
+  <p>«Эдвард» даже не настоящее имя автора, оно родилось на Reddit. Но с этим именем пришло прошлое, тяжёлое, и много плохих мыслей о себе. Любой ярлык работает так же: «мужчина», «женщина», национальность, профессия. Каждый открывает коробку готовых понятий. Автор называет их завесами на «Я ЕСМЬ».</p>
+  <p>Если воображать с позиции Эдварда, принимать трудно: у Эдварда есть история. Если воображать с позиции творца, того, что люди зовут Богом, принимать легко. Слово «Бог» автору тоже не очень нравится. Он пользуется им, потому что так понятнее. В последней главе он предлагает заменять его на «любовь», если слово ранит.</p>
+
+  <h2>Библия как карта состояний</h2>
+  <p>Невилл читал Библию психологически: персонажи для него состояния, в которые входит человек. Пример с царём Киром из книги Исаии. Ему открыто: «Я образую свет и творю тьму, делаю мир и произвожу бедствие». Когда ты понимаешь, что один источник делает и то, и другое, ты в состоянии царя Кира.</p>
+
+  <h2>Медитация «Я не есть»</h2>
+  <p>Невилл предлагал повторять «Я ЕСМЬ» и чувствовать, как ярлыки отпадают. Автору лучше подошло обратное: говорить себе «я не есть». Я не моё тело. Я не моё прошлое. Я не то, как меня называли родители. Без рассуждений, просто принимать. С каждым шагом становится свободнее.</p>
+  <p>Зачем отцепляться? Автор даёт две причины. Чтобы перестать импульсивно реагировать на окружение: мягко входить в состояния и не давить на мир силой. И потому что творец, которого ищешь, находится внутри.</p>
+  <div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/notam">Пройти «Я не есть»</a></div>
+
+  <h2>Дневник «Кто моя печаль?»</h2>
+  <p>Запись, которая сильно повлияла на самого автора. Если Бог создал всё, он создал и мою печаль, одиночество, гнев, радость, покой. Имя Бога «Я ЕСМЬ».</p>
+  <div class="journal-out" style="margin:20px 0"><span class="who">Кто моя печаль?</span> <span class="ans">Я ЕСМЬ.</span><br><span class="who">Кто мой гнев?</span> <span class="ans">Я ЕСМЬ.</span><br><span class="who">Кто моё одиночество?</span> <span class="ans">Я ЕСМЬ.</span></div>
+  <p>Если ты создатель печали, ты можешь «проклясть корень мысли», убрать из неё себя, и она засохнет. И с тем же правом можешь войти в радость. То, что казалось потерянным, на самом деле есть в уме. Потерю создаёт вера в потерю.</p>
+  <div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/journal">Написать свою запись</a></div>
+
+  <h2>Заключительная медитация</h2>
+  <p>Книга заканчивается простой практикой на пять минут. Задаёшь себе вопросы и отвечаешь с позиции Бога, честно и коротко: «нет, Бог не стал бы» или «да». Ничего не добавляешь, свою позицию в ответ не впускаешь.</p>
+  <blockquote><p>Стал бы Бог бояться того, чего я боюсь сейчас? Стал бы Бог сомневаться в своём достоинстве? Искал бы Бог одобрения человека?</p><cite>Из главы «Стал бы Бог бояться?»</cite></blockquote>
+  <p>По мере ответов внутри поднимаются лёгкость, бесстрашие и сила. Автор просит их не пугаться и прочувствовать до конца. Уильям Блейк называл язык ада самооправданием: бесконечными объяснениями, почему я всё ещё боюсь и всё ещё жду одобрения.</p>
+  <div class="tip"><h4>Финальная практика</h4><p>Пятнадцать вопросов по одному на экране. Можно выбрать слово «Бог» или «любовь».</p><div class="row-btns"><a class="btn btn-ghost btn-sm" href="#practice/god">Начать медитацию</a></div></div>
+
+  <h2>Проверь себя</h2>
+  <div class="quiz" data-quiz="8"></div>
+</article>
+
+      <div class="lesson-nav" id="lesson-nav"></div>
+    </div>
+  </div>
+</section>
+<!-- ============ PRACTICE ============ -->
+<section class="view" id="v-practice">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="--acc:var(--lime)">Практикум</div>
+      <h1 style="font-size:52px;margin-bottom:16px">Все упражнения <span class="grad">из книги</span></h1>
+      <p class="lead">Выбери упражнение. Записи сохраняются только в этом браузере, на сервер ничего не уходит. Внизу страницы есть кнопки для выгрузки и загрузки данных.</p>
+    </div>
+    <div class="tools" id="tools"></div>
+
+    <!-- SCENE -->
+    <div class="panel card" id="p-scene" style="--acc:var(--pink)">
+      <div class="panel-head"><div><div class="eyebrow">Уроки 2 и 7</div><h2>Конструктор сцены</h2><p class="muted">Собери короткую сцену, которая подразумевает, что желание уже исполнено. Пять полей, потом проверка на время.</p></div></div>
+      <div class="grid g2">
+        <div class="field"><label for="sc-wish">Чего я хочу</label><input type="text" id="sc-wish" placeholder="Например: новая работа в дизайн-студии"><span class="hint">Пиши как есть, здесь можно в будущем времени.</span></div>
+        <div class="field"><label for="sc-imply">Что это говорит обо мне</label><input type="text" id="sc-imply" placeholder="Я ценный специалист, меня выбирают"><span class="hint">Вопрос из книги: если бы это случилось, что бы это подразумевало о тебе?</span></div>
+        <div class="field"><label for="sc-place">Где я нахожусь</label><input type="text" id="sc-place" placeholder="На кухне, вечер, звоню маме"></div>
+        <div class="field"><label for="sc-sense">Что вижу, слышу, держу в руках</label><input type="text" id="sc-sense" placeholder="Мама говорит: «Поздравляю, я так рада!»"></div>
+      </div>
+      <div class="field"><label for="sc-iam">Фраза «Я ЕСМЬ» в настоящем времени</label><input type="text" id="sc-iam" placeholder="Я работаю в студии мечты, и мне здесь хорошо"><span class="hint">Пиши так, будто это уже правда. Проверка сработает сама.</span>
+        <div class="check-out" id="sc-check"></div></div>
+      <div class="row-btns"><button class="btn btn-main btn-sm" id="sc-save">Сохранить сцену</button><a class="btn btn-ghost btn-sm" href="#practice/session">Прожить её в сессии</a></div>
+      <div class="saved" id="sc-list"></div>
+    </div>
+
+    <!-- SESSION -->
+    <div class="panel card" id="p-session" style="--acc:var(--blue)">
+      <div class="panel-head"><div><div class="eyebrow">Урок 7</div><h2>Сессия воображения</h2><p class="muted">Около пяти минут. Шаги меняются сами. Можно читать с экрана или закрыть глаза и слушать подсказки звуком.</p></div>
+        <div class="field" style="min-width:260px;margin:0"><label for="ss-scene">Моя сцена</label><select id="ss-scene"></select></div></div>
+      <div class="timer">
+        <div class="breath" id="breath"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="2"/><circle id="ring" cx="50" cy="50" r="47" fill="none" stroke="var(--blue)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="295.3" stroke-dashoffset="295.3"/></svg><div class="t" id="ss-time">5:00</div></div>
+        <div>
+          <div class="step-txt" id="ss-step">Нажми «Начать», когда будешь готов. Сядь удобно.</div>
+          <div class="step-sub" id="ss-sub"></div>
+          <div class="row-btns" style="margin-top:22px"><button class="btn btn-main btn-sm" id="ss-start">Начать</button><button class="btn btn-ghost btn-sm" id="ss-stop">Сбросить</button><label class="btn btn-ghost btn-sm" style="cursor:pointer"><input type="checkbox" id="ss-sound" style="margin-right:6px">Звук на смену шага</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- YES -->
+    <div class="panel card" id="p-yes" style="--acc:var(--lime)">
+      <div class="panel-head"><div><div class="eyebrow">Урок 6</div><h2>Медитация «да»</h2><p class="muted">Впиши желание. Каждый раз, когда внутри поднимается вопрос или спор, нажимай «да». Без объяснений.</p></div></div>
+      <div class="field"><label for="yes-wish">Моё желание</label><input type="text" id="yes-wish" placeholder="Я живу у моря"></div>
+      <div class="qcard" style="background:radial-gradient(500px 260px at 50% 0%,rgba(163,230,53,.16),transparent 70%),var(--card)">
+        <div class="cnt" id="yes-cnt">0 раз сказано «да»</div>
+        <div class="qq" id="yes-q">Твоему желанию уже сказала «да» единственная творческая сила. Скажи ему «да» и ты.</div>
+        <button class="btn btn-main" id="yes-btn" style="background:linear-gradient(100deg,#65A30D,var(--lime));color:#0b0b12;min-width:200px;justify-content:center">Да</button>
+      </div>
+    </div>
+
+    <!-- NOTAM -->
+    <div class="panel card" id="p-notam" style="--acc:var(--cyan)">
+      <div class="panel-head"><div><div class="eyebrow">Уроки 3 и 8</div><h2>Медитация «Я не есть»</h2><p class="muted">Читай фразу, на секунду прими её без рассуждений и нажимай «Принято». Добавь свои ярлыки в конце.</p></div></div>
+      <div class="notam" id="notam"></div>
+      <div class="field" style="margin-top:18px"><label for="notam-add">Свой ярлык, от которого хочу отцепиться</label><div style="display:flex;gap:10px"><input type="text" id="notam-add" placeholder="Например: тот, кто всегда опаздывает"><button class="btn btn-ghost btn-sm" id="notam-addbtn">Добавить</button></div></div>
+      <div class="row-btns"><button class="btn btn-main btn-sm" id="notam-next">Принято</button><button class="btn btn-ghost btn-sm" id="notam-reset">Начать заново</button></div>
+    </div>
+
+    <!-- GOD -->
+    <div class="panel card" id="p-god" style="--acc:var(--gold)">
+      <div class="panel-head"><div><div class="eyebrow">Урок 8</div><h2>«Стал бы Бог бояться?»</h2><p class="muted">Заключительная медитация книги. Отвечай честно и быстро, ничего не добавляй.</p></div>
+        <div class="row-btns" style="margin:0"><button class="btn btn-ghost btn-sm on" data-word="Бог" id="w-god">Слово «Бог»</button><button class="btn btn-ghost btn-sm" data-word="любовь" id="w-love">Слово «любовь»</button></div></div>
+      <div class="qcard">
+        <div class="cnt" id="god-cnt">1 из 15</div>
+        <div class="qq" id="god-q"></div><div id="god-a" style="font-size:22px;font-weight:700;color:var(--gold);min-height:32px"></div>
+        <div class="row-btns" style="justify-content:center"><button class="btn btn-ghost" id="god-ans">Ответ с позиции Бога</button><button class="btn btn-main" id="god-next" style="background:linear-gradient(100deg,#CA8A04,var(--gold));color:#0b0b12">Дальше</button></div>
+      </div>
+    </div>
+
+    <!-- JOURNAL -->
+    <div class="panel card" id="p-journal" style="--acc:var(--gold)">
+      <div class="panel-head"><div><div class="eyebrow">Урок 8</div><h2>Дневник «Кто моя…?»</h2><p class="muted">Перечисли через запятую всё, что сейчас чувствуешь: и тяжёлое, и хорошее. Получится запись в стиле автора.</p></div></div>
+      <div class="field"><label for="jr-in">Что я сейчас чувствую</label><input type="text" id="jr-in" placeholder="тревога, усталость, надежда, одиночество"></div>
+      <div class="row-btns"><button class="btn btn-main btn-sm" id="jr-go">Составить запись</button><button class="btn btn-ghost btn-sm" id="jr-save">Сохранить в дневник</button></div>
+      <div class="journal-out" id="jr-out" style="display:none"></div>
+      <div class="saved" id="jr-list"></div>
+    </div>
+
+    <!-- REWRITE -->
+    <div class="panel card" id="p-rewrite" style="--acc:var(--amber)">
+      <div class="panel-head"><div><div class="eyebrow">Урок 4</div><h2>Переписать разговор</h2><p class="muted">Автор так и делал: вечером ложился и проживал разговор заново, с нужными словами. Запиши обе версии, потом закрой глаза и услышь новую.</p></div></div>
+      <div class="grid g2">
+        <div class="field"><label for="rw-who">С кем</label><input type="text" id="rw-who" placeholder="Руководитель"></div>
+        <div class="field"><label for="rw-old">Что было сказано</label><input type="text" id="rw-old" placeholder="«Твой проект пока сыроват»"></div>
+      </div>
+      <div class="field"><label for="rw-new">Что я слышу теперь, в новой версии</label><input type="text" id="rw-new" placeholder="«Отличная работа, берём в запуск»"><span class="hint">Только слова другого человека, в прямой речи. Как будто ты их уже услышал.</span></div>
+      <div class="row-btns"><button class="btn btn-main btn-sm" id="rw-save">Сохранить и прожить перед сном</button></div>
+      <div class="saved" id="rw-list"></div>
+    </div>
+
+    <!-- GIVE -->
+    <div class="panel card" id="p-give" style="--acc:var(--violet)">
+      <div class="panel-head"><div><div class="eyebrow">Урок 4</div><h2>От других к себе</h2><p class="muted">То, чего ты ждёшь от людей, на самом деле ты хочешь дать себе. Впиши ожидание и переверни его.</p></div></div>
+      <div class="grid g2">
+        <div class="field"><label for="gv-who">От кого жду</label><input type="text" id="gv-who" placeholder="Отец"></div>
+        <div class="field"><label for="gv-want">Чего жду</label><input type="text" id="gv-want" placeholder="чтобы он признал, что я молодец"></div>
+      </div>
+      <div class="field"><label for="gv-self">Что я даю себе сам, прямо сейчас</label><input type="text" id="gv-self" placeholder="Я признаю, что я молодец"><span class="hint">Начни с «Я». Без условия «когда он…».</span><div class="check-out" id="gv-check"></div></div>
+      <div class="row-btns"><button class="btn btn-main btn-sm" id="gv-save">Сохранить</button></div>
+      <div class="saved" id="gv-list"></div>
+    </div>
+
+    <!-- DUCK -->
+    <div class="panel card" id="p-duck" style="--acc:var(--amber)">
+      <div class="panel-head"><div><div class="eyebrow">Урок 7</div><h2>Эксперимент с предметом</h2><p class="muted">Выбери вещь, которая тебе обычно не встречается. Пять минут подержи её в воображаемой руке: вес, фактура, цвет, детали. Потом забудь и живи дальше.</p></div></div>
+      <div class="grid g2">
+        <div class="field"><label for="dk-obj">Предмет</label><input type="text" id="dk-obj" placeholder="Резиновая уточка"></div>
+        <div class="field"><label for="dk-det">Детали, которые я чувствую</label><input type="text" id="dk-det" placeholder="резина пружинит, оранжевый клюв, белое тельце"></div>
+      </div>
+      <div class="row-btns"><button class="btn btn-main btn-sm" id="dk-save">Начать эксперимент</button></div>
+      <div class="saved" id="dk-list"></div>
+    </div>
+
+    <!-- VENT -->
+    <div class="panel card" id="p-vent" style="--acc:var(--rose)">
+      <div class="panel-head"><div><div class="eyebrow">Урок 5</div><h2>Выпустить пар и вернуться к цели</h2><p class="muted">«Гневайтесь, и не согрешайте». Напиши всё, что кипит. Текст нигде не сохранится. Потом вернись к своей цели.</p></div></div>
+      <div class="vent field"><label for="vt-in">Всё, что хочется сказать</label><textarea id="vt-in" placeholder="Пиши как есть, без фильтров"></textarea></div>
+      <div class="row-btns"><button class="btn btn-main btn-sm" id="vt-burn" style="background:linear-gradient(100deg,#DC2626,var(--amber))">Сжечь</button></div>
+      <div id="vt-after" style="display:none;margin-top:22px">
+        <h3>Теперь цель</h3>
+        <p>Утихни. Поговори с собой: «я хочу…». То, чего ты не получил сегодня, ты принимаешь сейчас в воображении.</p>
+        <div class="field"><label for="vt-aim">Чего я хочу вместо этого</label><input type="text" id="vt-aim" placeholder="Спокойный разговор, в котором меня поняли"></div>
+        <div class="row-btns"><button class="btn btn-ghost btn-sm" id="vt-toscene">Сделать из этого сцену</button></div>
+      </div>
+    </div>
+
+    <!-- LOG -->
+    <div class="panel card" id="p-log" style="--acc:var(--gold)">
+      <div class="panel-head"><div><div class="eyebrow">Главное условие книги</div><h2>Журнал проверок</h2><p class="muted">Что ты вообразил и что случилось потом. Через месяц у тебя будет собственная статистика.</p></div></div>
+      <div class="grid g2">
+        <div class="field"><label for="lg-date">Дата</label><input type="date" id="lg-date"></div>
+        <div class="field"><label for="lg-type">Тип записи</label><select id="lg-type"><option>Вообразил</option><option>Заметил подтверждение</option><option>Наблюдение за собой</option></select></div>
+      </div>
+      <div class="field"><label for="lg-txt">Запись</label><textarea id="lg-txt" placeholder="Что именно, сколько раз, какие были ощущения"></textarea></div>
+      <div class="row-btns"><button class="btn btn-main btn-sm" id="lg-save">Добавить</button></div>
+      <div class="saved" id="lg-list"></div>
+    </div>
+
+    <div class="section card" style="--acc:var(--cyan)">
+      <h3>Мои данные</h3>
+      <p>Все записи живут в памяти браузера. Если чистишь браузер или переходишь на другое устройство, сначала выгрузи файл.</p>
+      <div class="row-btns"><button class="btn btn-ghost btn-sm" id="exp">Выгрузить JSON</button><label class="btn btn-ghost btn-sm" style="cursor:pointer">Загрузить JSON<input type="file" id="imp" accept=".json" hidden></label><button class="btn btn-ghost btn-sm" id="wipe" style="color:var(--rose)">Стереть всё</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRACKER ============ -->
+<section class="view" id="v-tracker">
+  <div class="container" style="--acc:var(--lime)">
+    <div class="section-head">
+      <div class="eyebrow">Трекер частоты</div>
+      <h1 style="font-size:52px;margin-bottom:16px">Понемногу, <span class="grad">каждый день</span></h1>
+      <p class="lead">Автор сравнивает практику с залом: результат даёт частота. Отмечай дни практики и считай семена, которые посадил сегодня.</p>
+    </div>
+    <div class="trk-top">
+      <div class="card stat"><div class="v" id="st-streak">0</div><div class="l">дней подряд</div></div>
+      <div class="card stat"><div class="v" id="st-days">0</div><div class="l">дней практики за 30</div></div>
+      <div class="card stat"><div class="v" id="st-seeds">0</div><div class="l">семян сегодня</div></div>
+      <div class="card stat"><div class="v" id="st-all">0</div><div class="l">семян всего</div></div>
+    </div>
+    <div class="grid g2">
+      <div class="card glow">
+        <h3>Семена сегодня</h3>
+        <p>Нажимай каждый раз, когда коротко побыл в желании: в очереди, в транспорте, перед сном. Хватит и десяти секунд.</p>
+        <div class="seeds" style="margin-top:18px"><button class="seed-btn" id="seed" aria-label="Посадить семя">🌱</button><div><div class="seed-row" id="seed-row"></div><button class="btn btn-ghost btn-sm" id="seed-undo" style="margin-top:10px">Убрать одно</button></div></div>
+      </div>
+      <div class="card">
+        <h3>Последние 30 дней</h3>
+        <p class="muted" style="font-size:15px">Нажми на день, чтобы отметить или снять отметку. Дни с семенами отмечаются сами.</p>
+        <div class="cal" id="cal" style="margin-top:16px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GLOSSARY ============ -->
+<section class="view" id="v-glossary">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow" style="--acc:var(--cyan)">Словарь</div>
+      <h1 style="font-size:52px;margin-bottom:16px">Термины книги</h1>
+      <p class="lead">Слова, которые автор использует в особом смысле. Если в уроке что-то непонятно, загляни сюда.</p>
+    </div>
+    <input type="text" class="search" id="gl-search" placeholder="Поиск по словарю">
+    <div class="gl" id="gl"></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="container">Конспект и практикум по книге Эдварда Арта «Царство воображения», основанной на учении Невилла Годдарда. Записи хранятся локально в твоём браузере.</div></footer>
+<div class="toast" id="toast"></div>
+<script>
+const LESSONS=[
+ {n:1,c:'var(--violet)',t:'Воображение как единственная реальность',s:'Личная реальность, внутренний человек и его тень. Почему работа идёт только внутри.',ch:'Вступление · Личная реальность · Внутренний человек · Переживать · «Важно не то, на что ты смотришь»'},
+ {n:2,c:'var(--pink)',t:'Чувство исполненного желания',s:'Что это за чувство, три времени и почему подтверждение снаружи можно спокойно ждать.',ch:'Чувство, которого мы ищем · «Я ЕСМЬ» · «Я лишь жду подтверждения»'},
+ {n:3,c:'var(--cyan)',t:'Мир состояний',s:'Состояния как комнаты. Цепочка причин. Ты занимаешь состояние и можешь выйти.',ch:'Мир состояний · Вы не состояние · История, которую мы себе рассказываем · В воображении нет наказаний'},
+ {n:4,c:'var(--amber)',t:'Найди причину',s:'Внутренний критик, гидра и снятое внимание. То, чего ждёшь от других, ты хочешь дать себе.',ch:'Найдите причину · Внутренний критик · Станьте тем, чем хотите видеть других · Бог играет все роли · «Кто я?»'},
+ {n:5,c:'var(--rose)',t:'Условия и голос рассудка',s:'Как условия и вопросы «как?» и «когда?» выбивают из сцены. Ответ «я не знаю».',ch:'Без условий · Не обусловливайте желания · Отвергнуто чувствами · Личное бессилие'},
+ {n:6,c:'var(--lime)',t:'Принятие',s:'Медитация «да», один источник всех желаний, закон бытия и прощение.',ch:'Внутренний человек · Кто желает? · Все желания из одного источника · Одна субстанция · Закон бытия · Искупительные мысли'},
+ {n:7,c:'var(--blue)',t:'Как воображать: по шагам',s:'Пять шагов автора, почему частота важнее длительности, молчание и эксперимент с предметом.',ch:'Как я воображаю · Практика: частота · История о сыне Невилла · Эксперимент с уточкой'},
+ {n:8,c:'var(--gold)',t:'Кто воображает: Бог внутри',s:'Имя как костюм, Библия как карта состояний, «Я не есть», дневник и финальная медитация.',ch:'Кто воображает? · Невилл и Библия · Медитация снятия ярлыков · Дневниковая запись · Заключительная медитация'}
+];
+const QUIZ={
+1:[{q:'Где, по книге, идёт вся работа?',o:['Во внешнем мире, через действия','Внутри, в представлении о себе','В разговорах с другими людьми'],a:1,w:'Первая опорная фраза книги: нет никого и ничего, что нужно менять, кроме самого себя. Внешний мир автор советует оставить в покое.'},
+   {q:'Что в книге означает образ тени?',o:['Тёмную сторону характера','Тело, которое повторяет движения внутреннего человека','Страх перед будущим'],a:1,w:'Тело и внешний мир похожи на тень. Спорить с тенью, что она отдельна, так же странно, как доверять внешнему больше, чем внутреннему.'},
+   {q:'Как понять, что состояние сменилось?',o:['Внешний мир сразу изменится','Появятся сильные эмоции','Те же вещи начинают видеться по-другому'],a:2,w:'Автор ссылается на Торо: важно то, что ты видишь. Новое состояние меняет взгляд на привычные вещи.'}],
+2:[{q:'Чувство исполненного желания, по Невиллу, это прежде всего…',o:['Сильная радость','Принятие факта, что желание уже исполнено','Ожидание, что скоро всё случится'],a:1,w:'Эмоции придут после. Сначала ты принимаешь, что это уже так.'},
+   {q:'Фраза «скоро у меня будет дом» в какое время уводит?',o:['В «я буду»','В «Я ЕСМЬ»','В «я был»'],a:0,w:'Слово «скоро» и форма «будет» ставят желание в будущее. Формулировка для сцены: «я живу в своём доме».'},
+   {q:'Ты открыл глаза после сцены, а кольца на пальце нет. Что советует автор?',o:['Повторять сцену, пока не появится','Признать, что техника не сработала','Помнить, что внутренний человек уже женат, и ждать подтверждения спокойно'],a:2,w:'Внешнее отстаёт. Оно подтвердит то, что уже есть внутри.'}],
+3:[{q:'Что такое состояние?',o:['Убеждение о себе, ощущаемое как факт','Настроение на один день','Черта характера, данная с рождения'],a:0,w:'С состоянием приходят поведение, мысли и способ видеть мир. Его можно занять и можно оставить.'},
+   {q:'Какое состояние проявляется в жизни?',o:['Самое яркое','То, в которое ты постоянно возвращаешься','То, о котором чаще говоришь'],a:1,w:'Пример с матчем: после гола ты возвращаешься к себе обычному. Это и есть внутренний дом.'},
+   {q:'Пришло тяжёлое чувство. Какая фраза ближе к книге?',o:['«Я и есть это чувство»','«Надо с ним бороться»','«У меня есть чувство, и оно идёт из состояния»'],a:2,w:'Ты не мысли и не чувства. Это то, что у тебя есть.'}],
+4:[{q:'Как автор избавился от мумии во сне?',o:['Победил её в драке','Перестал драться и стал бесстрашным','Проснулся и забыл'],a:1,w:'Когда внимание ушло со страха, мумия начала уменьшаться и исчезла. Тот же смысл у огня в мифе о гидре.'},
+   {q:'Ты ждёшь, что начальник наконец оценит тебя. Что из этого следует по книге?',o:['На самом деле ты хочешь сам оценить себя','Нужно сменить работу','Нужно воображать, как начальник меняется'],a:0,w:'То, чего ждёшь от других, ты хочешь дать себе. Ожидание от другого это условие.'},
+   {q:'Какой вопрос Невилл советует задавать вместо «что мне сделать?»',o:['«Почему так вышло?»','«Кто виноват?»','«Кто я? Каково моё представление о себе?»'],a:2,w:'Будущее определяется представлением о себе. Поменяешь его сейчас, поменяется и будущее.'}],
+5:[{q:'Когда появляется условие?',o:['Когда желание слишком большое','Когда уходишь от желания в другое время','Когда воображаешь слишком редко'],a:1,w:'Условие пристёгивает к желанию будущее или прошлое. В настоящем условий нет.'},
+   {q:'Рассудок спрашивает: «а как это вообще случится?» Ответ по книге:',o:['Составить подробный план','Сначала найти доказательства','«Я не знаю»'],a:2,w:'Средства придут путями, которые ты бы сам не придумал. Мост уже построен.'},
+   {q:'Во время сцены пришла тревога. Что делать первым делом?',o:['Почувствовать себя в безопасности внутри своего ума','Бросить практику на сегодня','Сосредоточиться сильнее'],a:0,w:'Неуверенность выталкивает из сна. Безопасность внутри даёт сцене устоять.'}],
+6:[{q:'Какую главную проблему автор видит у людей?',o:['Мало практики','Принятие','Неправильная техника'],a:1,w:'Автор считает, что миллион повторов и идеальные условия засыпания не нужны. Нужно принять.'},
+   {q:'Зачем в книге образ фортепиано?',o:['Показать, что все желания из одного источника','Объяснить ритм практики','Как пример желания'],a:0,w:'Ноты разные, инструмент один. Большое и малое желание сделаны из одного материала.'},
+   {q:'При допущении хорошего учащается сердцебиение и кажется, что «мне нельзя». Что говорит автор?',o:['Это знак, что желание не твоё','Нужно остановиться','Это нормально, всё внутри тебя твоё'],a:2,w:'Автор сам через это проходил. Чьим ещё быть тому, что внутри тебя?'}],
+7:[{q:'Что важнее в практике?',o:['Длительность одной сессии','Частота','Яркость картинки'],a:1,w:'Сравнение с залом: десять часов один раз ничего не дадут, понемногу каждый день дадут.'},
+   {q:'Что Невилл советовал делать после того, как допустил желание?',o:['Рассказать близким','Записать и перечитывать','Никому не рассказывать'],a:2,w:'Правило из истории о сыне Невилла: допусти это и храни молчание.'},
+   {q:'Хочешь подтверждения, что новое состояние держится. Куда смотреть?',o:['Внутрь: увидеть людей, которые ведут себя так, будто это уже правда','В соцсети и новости','На счёт в банке'],a:0,w:'Подтверждение тоже ищут в воображении. Внешний мир отразит его позже.'}],
+8:[{q:'С какой позиции, по автору, принимать легче всего?',o:['С позиции своего имени и истории','С позиции творца, того, что зовут Богом','С позиции наблюдателя'],a:1,w:'У имени есть прошлое и сопротивление. У творца нет вопроса о достоинстве.'},
+   {q:'Ответ на вопрос «Кто моя печаль?» в дневнике автора:',o:['«Я ЕСМЬ»','«Мои обстоятельства»','«Другие люди»'],a:0,w:'Если ты создатель печали, ты можешь убрать из неё себя, и с тем же правом войти в радость.'},
+   {q:'Что делать, если слово «Бог» вызывает сопротивление?',o:['Пропустить медитацию','Заменить на «любовь»','Сначала изучить богословие'],a:1,w:'Так предлагает сам автор: стала бы любовь сомневаться в своём достоинстве?'}]
+};
+const CHAIN=['Источник всего. Безымянное воображение, которое выбирает состояние. Оно само состоянием не является, поэтому может выйти из любого.','Убеждение о себе, ощущаемое как факт: «я такой». Состояние приносит с собой готовый набор мыслей и реакций.','Мысли растут из состояния, как головы гидры из тела. Бороться с каждой бессмысленно. Меняешь состояние, меняются мысли.','Действия следуют за мыслями. Попытка управлять ими силой воли приводит к войне с собой.','Люди и обстоятельства. Урожай того, что посажено выше. Менять его напрямую бесполезно, автор советует оставить мир в покое.'];
+const ROOMS=[['Страх','кажется, что сейчас что-то рухнет'],['Безопасность','внутри моего ума ничто не угрожает'],['Нехватка','всё время нужно брать'],['Изобилие','хочется давать'],['Неудачник','«у меня никогда не выходит»'],['Уверенность','старые воспоминания не задевают'],['Зритель','смотрю на сцену из зала'],['Артист','я на сцене, зал мой']];
+const CONDS=[['Условие времени','«Дом построят только через полгода»','Внутренний человек может спать в этом доме уже сегодня ночью.'],['Условие прошлого','«С моей историей это невозможно»','Воображение позволяет тебе вообразить новое. Значит, оно тебя уже простило.'],['Условие других людей','«Сначала они должны меня оценить»','То, чего ждёшь от них, дай себе сам. Позволения ни у кого спрашивать не нужно.'],['Условие тела и чувств','«Но я же не чувствую этого физически»','Чувства тела отстают. Ты отождествляешься с внутренним человеком, у которого это уже есть.']];
+const OBJS=[['Как это случится?','Я не знаю. И знать не нужно. Автор много раз видел, как желаемое приходило путями, которые он сам никогда бы не придумал.'],['Когда?','«Когда» живёт в будущем. Внутренний человек уже там. Вопрос о сроке возвращает тебя в «я буду».'],['А вдруг не сработает?','Для «Я ЕСМЬ» уже сработало. Сомнение появляется, только когда ты снова смотришь глазами внешнего человека.'],['Кто мне поможет?','Люди лишь посланники. Ты творец своего мира, и «Бог играет все роли»: нужные люди появятся сами.'],['Разве я это заслужил?','Хорошая мысль сделана из того же материала, что и плохая. Право на неё у тебя есть. Ты прощён.'],['Мир говорит обратное','Оставь мир в покое. Всё равно, что он говорил о тебе, говорит сейчас и скажет потом. Меняешь себя внутри.']];
+const PIANO=[['страх','lo'],['покой',''],['нехватка','lo'],['изобилие',''],['гнев','lo'],['любовь',''],['сомнение','lo'],['вера',''],['стыд','lo'],['достоинство',''],['одиночество','lo'],['близость','']];
+const DRILL=[['Скоро у меня будет новая квартира','Я живу в своей новой квартире'],['Я хочу, чтобы меня ценили','Меня ценят, со мной считаются'],['Надеюсь, я сдам экзамен','Я сдал экзамен, у меня диплом в руках'],['Когда-нибудь я буду спокойным','Я спокоен']];
+const NOTAM=['Я не моё тело.','Я не моё прошлое.','Я не моё будущее.','Я не то, как меня называли родители.','Я не то, как меня называет общество.','Я не моя национальность и не мой цвет кожи.','Я не мои поступки и не мои слова.','Я не мои мысли.','Я не мои чувства. Это то, что у меня есть.','Я не мои нынешние состояния.'];
+const GODQ=['Стал бы {g} бояться того, чего я боюсь сейчас?','Чувствовал бы {g} себя застрявшим, как чувствую я?','Позволил бы {g} себе все удовольствия, которых желает?','Стал бы {g} сомневаться в своём достоинстве?','Стал бы {g} просить разрешения у человека?','Искал бы {g} одобрения человека?','Искал бы {g} вообще чего-либо?','Испытывал бы {g} нехватку?','Стал бы {g} слушать сомнения?','Был бы {g} рабом чувств?','Был бы {g} всецело милостив и щедр?','Стал бы {g} ненавидеть или бояться кого-либо?','Верил бы {g} в себя?','Боялся бы {g} смерти?','Любил бы {g} бесконечно?'];
+const GODA=['Нет, не стал бы.','Нет.','Да.','Нет, не стал бы.','Нет, не стал бы.','Нет.','Нет.','Нет.','Нет, не стал бы.','Нет.','Да.','Нет, не стал бы.','Да.','Нет.','Да.'];
+const STEPS=[[15,'Сядь удобно. Отпусти плечи.','Сделай пару медленных вдохов.'],[35,'Помни цель.','Цель одна: стать тем, кем хочешь быть, в воображении.'],[45,'Подумай, кем хочешь быть.','{wish}'],[70,'Помести себя в сцену.','{place}'],[70,'Почувствуй детали.','{sense}'],[45,'Ты и есть внутренний человек.','Скажи про себя: «{iam}»'],[20,'Никаких вопросов.','Нет «как», нет «когда». Если рассудок что-то спросит, ответь «я не знаю» и вернись в сцену.'],[0,'Готово.','Открой глаза и живи дальше. Внешний мир оставь в покое.']];
+const MAP=[
+ {i:'🌌',c:'var(--violet)',t:'Основа: всё происходит в воображении',d:'Личная реальность, внутренний и внешний человек, тень. Как внутри, так и снаружи.',l:1},
+ {i:'💗',c:'var(--pink)',t:'Метод: чувство исполненного желания',d:'Принятие факта в настоящем времени. Только «Я ЕСМЬ» создаёт.',l:2},
+ {i:'🚪',c:'var(--cyan)',t:'Механизм: состояния',d:'Ты переходишь из состояния в состояние. Проявляется то, куда возвращаешься.',l:3},
+ {i:'🔥',c:'var(--amber)',t:'Ответственность: я причина',d:'Внутренний критик, страх, другие люди: всё это ты. Ответственность даёт силу.',l:4},
+ {i:'🧱',c:'var(--rose)',t:'Помехи: условия и рассудок',d:'Будущее, прошлое, чужое мнение, вопрос «как?». На всё ответ «я не знаю».',l:5},
+ {i:'✅',c:'var(--lime)',t:'Ключевое действие: принятие',d:'Сказать «да». Один источник для всех желаний. Ты прощён.',l:6},
+ {i:'🛠️',c:'var(--blue)',t:'Ежедневная практика',d:'Пять шагов, частота, молчание, проверочные эксперименты.',l:7},
+ {i:'👑',c:'var(--gold)',t:'Позиция: воображать как творец',d:'Снять ярлыки, увидеть «Я ЕСМЬ» за всеми ролями, подражать Богу внутри.',l:8}];
+const GLOSS=[
+ ['Воображение','В книге это синоним Бога и единственная творческая сила. Всё в жизни выражается из него.'],
+ ['Личная реальность','Твой внутренний мир, где ты можешь быть кем угодно и где ты хозяин.'],
+ ['Внутренний человек','Ты в воображении. Тот, кто переживает сцену как факт. С ним и нужно отождествляться.'],
+ ['Внешний человек','Тело, имя, биография. Тень внутреннего человека.'],
+ ['«Я ЕСМЬ»','Чувство бытия в настоящем времени. Имя Бога в Ветхом Завете. То, что ты о себе утверждаешь.'],
+ ['Состояние','Убеждение о себе, ощущаемое как факт. Его можно занять и оставить, как комнату.'],
+ ['Внутренний дом','Состояние, в которое ты постоянно возвращаешься. Оно и проявляется.'],
+ ['Чувство исполненного желания','Принятие факта, что желание уже исполнено. Эмоции приходят после.'],
+ ['Условие','Попытка поставить желание в зависимость от будущего, прошлого, тела или других людей.'],
+ ['Голос рассудка','Вопросы «как?», «когда?», «а если?». Ответ на них: «я не знаю».'],
+ ['Принятие','Внутреннее «да». Невилл приравнивал его к сдаче: поддаться чувству.'],
+ ['Отцепление','Снятие ярлыков: «я не моё тело», «я не мои чувства». Облегчает переход в новые состояния.'],
+ ['Закон бытия','Выражение Невилла: «Я закон бытия, и кроме меня нет закона». Автор предпочитает его словам «закон притяжения».'],
+ ['Прощение','Быть в воображении тем, кем хочешь быть. Если воображение позволяет, оно уже простило.'],
+ ['Грех','Промах мимо цели. «Гневайтесь, и не согрешайте»: выпусти пар и вернись к цели.'],
+ ['Семена','Короткие погружения в желание в течение дня. Чем больше посажено, тем лучше урожай.'],
+ ['Подтверждение','Внешнее отражение внутреннего. Его ждут спокойно и ищут сначала внутри.'],
+ ['Царь Кир','Библейское состояние понимания, что один источник творит и свет, и тьму.'],
+ ['Личное бессилие','Признание внешнего человека: «я ничего не могу творить сам от себя». Рассудок умолкает.'],
+ ['Тень','Образ тела и внешнего мира. Тень повторяет движения того, кто её отбрасывает.']];
+</script>
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const KEY='tsarstvo_v1';
+let S={};try{S=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){S={}}
+const def={done:[],quiz:{},scenes:[],journal:[],rewrites:[],gives:[],ducks:[],log:[],days:{},seeds:{}};
+for(const k in def) if(S[k]==null) S[k]=def[k];
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const esc=t=>String(t||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const fmt=iso=>new Date(iso).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)};
+const markDay=()=>{S.days[today()]=1;save()};
+
+/* ---------- progress ---------- */
+function progress(){
+  const p=Math.round(S.done.length/8*100);$('#topbar').style.width=p+'%';
+}
+/* ---------- lesson cards ---------- */
+function lessonCards(){
+  const card=(l,big)=>`<a class="card lesson-card glow ${S.done.includes(l.n)?'done':''}" href="#lesson-${l.n}" style="--acc:${l.c}">
+    <span class="done-badge">✓</span><span class="tag">Урок ${l.n}</span><h3>${l.t}</h3><p>${l.s}</p>${big?`<p style="font-size:13px;color:var(--dim)">Главы: ${l.ch}</p>`:''}<span class="bar"></span></a>`;
+  $('#home-lessons').innerHTML=LESSONS.map(l=>card(l)).join('');
+  $('#all-lessons').innerHTML=LESSONS.map(l=>card(l,1)).join('');
+  $('#side').innerHTML='<div class="side-title">Уроки</div>'+LESSONS.map(l=>`<a href="#lesson-${l.n}" data-n="${l.n}" style="--c:${l.c}" class="${S.done.includes(l.n)?'done':''}"><span class="dot"></span>${l.n}. ${l.t}</a>`).join('');
+  progress();
+}
+/* ---------- map ---------- */
+$('#map-path').innerHTML=MAP.map(m=>`<div class="stage" style="--c:${m.c}"><div class="ball">${m.i}</div><div><h3>${m.t}</h3><p>${m.d}</p><a class="btn btn-ghost btn-sm" href="#lesson-${m.l}">Урок ${m.l} →</a></div></div>`).join('');
+function chain(id,info){$$(id+' .node').forEach(n=>n.addEventListener('click',()=>{$$(id+' .node').forEach(x=>x.classList.remove('act'));n.classList.add('act');$(info).textContent=CHAIN[n.dataset.i]}))}
+chain('#mapchain','#mapchain-info');chain('#chain2','#chain2-info');
+
+/* ---------- lesson interactives ---------- */
+const rooms=$('#rooms');
+rooms.innerHTML=ROOMS.map((r,i)=>`<div class="room ${i==0?'in':''}" data-i="${i}">${r[0]}<small>${r[1]}</small></div>`).join('');
+rooms.addEventListener('click',e=>{const r=e.target.closest('.room');if(!r)return;$$('.room').forEach(x=>x.classList.remove('in'));r.classList.add('in');
+  const x=ROOMS[r.dataset.i];$('#room-info').innerHTML=`Сейчас ты в комнате «<b>${x[0]}</b>»: ${x[1]}. Ты зашёл сюда, значит, можешь и выйти. «Я ЕСМЬ» остаётся тем же в любой комнате.`});
+const att=$('#att');att.addEventListener('input',()=>{const v=+att.value;$('#att-v').textContent=v;
+  const m=$('#monster');m.style.transform=`scale(${.25+v/100*1})`;m.style.opacity=.15+v/100*.85;m.style.filter=`saturate(${v/100})`;
+  $('#att-t').textContent=v>70?'Ты борешься с каждой мыслью по отдельности. На месте одной вырастают две.':v>30?'Внимание уходит. Страх ещё здесь, но становится меньше.':v>5?'Ты перестал драться и просто бесстрашен. Чудовище тает, как мумия во сне автора.':'Внимания нет, и питаться ему нечем. Его больше нет.'});
+$('#conds').innerHTML=CONDS.map(c=>`<div class="rewrite" style="margin:0 0 6px"><div class="old" style="text-decoration:none"><b style="color:#FDA4AF">${c[0]}</b><br>${c[1]}</div><div class="new">${c[2]}</div></div>`).join('')+'<p class="muted" style="font-size:14px">Нажми на карточку условия.</p>';
+$('#conds').addEventListener('click',e=>{const r=e.target.closest('.rewrite');if(r)r.classList.toggle('open')});
+$('#objs').innerHTML=OBJS.map((o,i)=>`<button data-i="${i}">${o[0]}</button>`).join('');
+$('#objs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$$('#objs button').forEach(x=>x.classList.remove('act'));b.classList.add('act');$('#obj-ans').textContent=OBJS[b.dataset.i][1]});
+const pianoMsgs={lo:'Низкая нота. Тот же инструмент, то же воображение. Ты сыграл её, значит, можешь сыграть и другую.',hi:'Высокая нота. Она так же доступна, как низкая. Права на неё у тебя ровно столько же.'};
+$('#piano').innerHTML=PIANO.map(p=>`<button class="${p[1]}">${p[0]}</button>`).join('');
+let actx;function tone(f){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type='sine';g.gain.setValueAtTime(.15,actx.currentTime);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+1.2);o.connect(g).connect(actx.destination);o.start();o.stop(actx.currentTime+1.2)}catch(e){}}
+$$('#piano button').forEach((b,i)=>b.addEventListener('click',()=>{tone(220*Math.pow(2,i/12*1.6));$('#piano-out').innerHTML=`<b>${b.textContent}</b>. `+(b.classList.contains('lo')?pianoMsgs.lo:pianoMsgs.hi)}));
+$('#tense-drill').innerHTML=DRILL.map(d=>`<div class="rewrite" style="cursor:pointer"><div class="old">${d[0]}</div><div class="new">${d[1]}</div></div>`).join('')+'<p class="muted" style="font-size:14px;margin-top:10px">Сначала переделай фразу в уме, потом нажми, чтобы сверить.</p>';
+$('#tense-drill').addEventListener('click',e=>{const r=e.target.closest('.rewrite');if(r)r.classList.toggle('open')});
+
+/* ---------- quizzes ---------- */
+function renderQuiz(n){
+  const box=$(`[data-quiz="${n}"]`);if(!box)return;
+  const qs=QUIZ[n],st=S.quiz[n]||{};
+  box.innerHTML=qs.map((q,i)=>`<div class="q ${st[i]!=null?'answered':''}" data-i="${i}"><h4>${i+1}. ${q.q}</h4><div class="opts">${q.o.map((o,j)=>`<button data-j="${j}" class="${st[i]!=null?(j==q.a?'right':(j==st[i]?'wrong':'')):''}">${o}</button>`).join('')}</div><div class="why">${q.w}</div></div>`).join('')
+   +`<div class="row-btns"><span class="score" id="score-${n}"></span></div><div class="row-btns"><button class="btn btn-main btn-sm" data-done="${n}">${S.done.includes(n)?'Урок пройден ✓':'Отметить урок пройденным'}</button><button class="btn btn-ghost btn-sm" data-reset="${n}">Пройти тест заново</button></div>`;
+  const right=Object.keys(st).filter(i=>st[i]==qs[i].a).length;
+  if(Object.keys(st).length) $('#score-'+n).textContent=`Верно: ${right} из ${qs.length}`;
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.q .opts button');
+  if(b){const q=b.closest('.q'),n=q.closest('[data-quiz]').dataset.quiz,i=q.dataset.i;S.quiz[n]=S.quiz[n]||{};if(S.quiz[n][i]!=null)return;S.quiz[n][i]=+b.dataset.j;save();renderQuiz(n);return}
+  const d=e.target.closest('[data-done]');if(d){const n=+d.dataset.done;if(!S.done.includes(n)){S.done.push(n);save();toast('Урок отмечен');}lessonCards();renderQuiz(n);return}
+  const r=e.target.closest('[data-reset]');if(r){delete S.quiz[r.dataset.reset];save();renderQuiz(r.dataset.reset)}
+});
+
+/* ---------- router ---------- */
+function route(){
+  let h=(location.hash||'#home').slice(1);let [v,sub]=h.split('/');
+  let lesson=null;if(/^lesson-\d$/.test(v)){lesson=+v.split('-')[1];v='lesson'}
+  if(!$('#v-'+v)) v='home';
+  $$('.view').forEach(x=>x.classList.toggle('on',x.id=='v-'+v));
+  $$('nav.main a').forEach(a=>a.classList.toggle('on',a.dataset.v==v||(v=='lesson'&&a.dataset.v=='lessons')));
+  $('#nav').classList.remove('open');
+  if(v=='lesson'){
+    $$('[data-l]').forEach(a=>a.hidden=+a.dataset.l!==lesson);
+    $$('#side a').forEach(a=>a.classList.toggle('on',+a.dataset.n==lesson));
+    renderQuiz(lesson);
+    const prev=LESSONS[lesson-2],next=LESSONS[lesson];
+    $('#lesson-nav').innerHTML=(prev?`<a class="btn btn-ghost" href="#lesson-${prev.n}">← ${prev.n}. ${prev.t}</a>`:'<span></span>')+(next?`<a class="btn btn-main" href="#lesson-${next.n}">${next.n}. ${next.t} →</a>`:`<a class="btn btn-main" href="#practice">В практикум →</a>`);
+    $('#lesson-nav').style.setProperty('--acc',LESSONS[lesson-1].c);
+    window.scrollTo(0,0);
+  } else if(v=='practice'){openTool(sub);if(!sub)window.scrollTo(0,0)}
+  else window.scrollTo(0,0);
+  if(v=='tracker')renderTracker();
+}
+window.addEventListener('hashchange',route);
+$('#burger').addEventListener('click',()=>$('#nav').classList.toggle('open'));
+
+/* ---------- tools ---------- */
+const TOOLS=[['scene','🎬','Конструктор сцены','Собери сцену, которая подразумевает исполненное желание. Проверка на настоящее время.','Уроки 2, 7','var(--pink)'],
+ ['session','⏱️','Сессия на 5 минут','Таймер ведёт по шагам автора: цель, сцена, детали, «Я ЕСМЬ», без вопросов.','Урок 7','var(--blue)'],
+ ['yes','✅','Медитация «да»','Отвечай «да» своему желанию каждый раз, когда внутри поднимается спор.','Урок 6','var(--lime)'],
+ ['notam','🫧','«Я не есть»','Снимай ярлыки один за другим: тело, прошлое, имя, мысли, чувства.','Уроки 3, 8','var(--cyan)'],
+ ['god','👑','«Стал бы Бог бояться?»','Пятнадцать вопросов финальной медитации книги.','Урок 8','var(--gold)'],
+ ['journal','📓','Дневник «Кто моя…?»','Запись в стиле автора: кто моя печаль? Я ЕСМЬ.','Урок 8','var(--gold)'],
+ ['rewrite','💬','Переписать разговор','Запиши, что было сказано, и что ты слышишь теперь.','Урок 4','var(--amber)'],
+ ['give','🎁','От других к себе','Переверни ожидание от людей в то, что даёшь себе.','Урок 4','var(--violet)'],
+ ['duck','🦆','Эксперимент с предметом','Проверь на простом предмете, как воображение выходит наружу.','Урок 7','var(--amber)'],
+ ['vent','🔥','Выпустить пар','Напиши всё, что кипит, сожги и вернись к цели.','Урок 5','var(--rose)'],
+ ['log','🧪','Журнал проверок','Что вообразил и что случилось. Твоя статистика.','Все уроки','var(--gold)'],
+ ['tracker','🌱','Трекер частоты','Дни практики и семена за день.','Урок 7','var(--lime)']];
+$('#tools').innerHTML=TOOLS.map(t=>`<button class="card tool-card" data-tool="${t[0]}" style="--acc:${t[5]}"><span class="ico">${t[1]}</span><h3 style="font-size:19px;margin:0">${t[2]}</h3><p>${t[3]}</p><span class="src">${t[4]}</span></button>`).join('');
+$('#tools').addEventListener('click',e=>{const b=e.target.closest('[data-tool]');if(!b)return;location.hash=b.dataset.tool=='tracker'?'#tracker':'#practice/'+b.dataset.tool});
+function openTool(id){
+  $$('.panel').forEach(p=>p.classList.toggle('on',p.id=='p-'+id));
+  const p=$('#p-'+id);if(p){setTimeout(()=>p.scrollIntoView({behavior:'smooth',block:'start'}),60);
+    if(id=='session')fillSceneSelect();if(id=='god')renderGod();if(id=='notam')renderNotam();}
+}
+const list=(el,arr,tpl,key)=>{$(el).innerHTML=arr.length?arr.slice().reverse().map((x,ri)=>{const i=arr.length-1-ri;return `<div class="item"><button class="del" data-del="${key}" data-i="${i}" aria-label="Удалить">✕</button><div class="meta">${fmt(x.d)}</div>${tpl(x)}</div>`}).join(''):'<p class="empty">Пока пусто.</p>'};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-del]');if(!b)return;if(!confirm('Удалить запись?'))return;S[b.dataset.del].splice(+b.dataset.i,1);save();renderLists()});
+
+/* scene */
+const W=x=>new RegExp('(^|[^а-яёa-z])('+x+')(?=$|[^а-яёa-z])','i');
+const BAD=[[W('буду|будет|будем|будешь|будут|станет|стану|станем'),'Будущее время («буду», «станет»). Внутренний человек уже там: пиши «я есть», «я живу», «у меня».'],
+ [W('хочу|хотел|хотела|хотели|хотелось|хотелось бы'),'«Хочу» подразумевает, что этого пока нет. Опиши, как это, когда оно уже есть.'],
+ [W('надеюсь|надежда|мечтаю'),'«Надеюсь» и «мечтаю» ставят желание в будущее.'],
+ [W('скоро|когда-нибудь|однажды|завтра|потом|через'),'Слово про срок уводит из настоящего. Желание случилось сейчас.'],
+ [W('если|когда'),'«Если» и «когда» это условия. Убери их.'],
+ [W('получу|смогу|добьюсь|попробую|постараюсь|должен|должна|нужно|надо'),'Это форма усилия или будущего. У внутреннего человека усилий нет, есть факт.'],
+ [W('был|была|было|были'),'Прошедшее время «я был». Если это не описание уже сбывшегося, переведи в «Я ЕСМЬ».'],
+ [W('не'),'В фразе есть «не». Лучше назвать то, что есть. Например, «я здоров» вместо «я больше не болею».']];
+function check(txt,out){const o=$(out);if(!txt.trim()){o.innerHTML='';return 0}
+  const f=BAD.filter(b=>b[0].test(' '+txt.toLowerCase().replace(/ё/g,'е')+' ')).map(b=>`<div class="flag">${b[1]}</div>`);
+  o.innerHTML=f.length?f.join(''):'<div class="flag ok">Звучит как факт настоящего. Так и проживай.</div>';return f.length}
+$('#sc-iam').addEventListener('input',e=>check(e.target.value,'#sc-check'));
+$('#sc-save').addEventListener('click',()=>{const g=id=>$(id).value.trim();const x={d:new Date().toISOString(),wish:g('#sc-wish'),imply:g('#sc-imply'),place:g('#sc-place'),sense:g('#sc-sense'),iam:g('#sc-iam')};
+  if(!x.iam&&!x.wish){toast('Заполни хотя бы желание и фразу «Я ЕСМЬ»');return}
+  S.scenes.push(x);markDay();save();renderLists();toast('Сцена сохранена');['#sc-wish','#sc-imply','#sc-place','#sc-sense','#sc-iam'].forEach(i=>$(i).value='');$('#sc-check').innerHTML=''});
+/* session */
+function fillSceneSelect(){$('#ss-scene').innerHTML='<option value="">Без сохранённой сцены</option>'+S.scenes.map((s,i)=>`<option value="${i}">${esc(s.iam||s.wish).slice(0,60)}</option>`).join('');if(S.scenes.length)$('#ss-scene').value=S.scenes.length-1}
+let ssT=null;
+function stopSession(){clearInterval(ssT);ssT=null;$('#ss-time').textContent='5:00';$('#ring').style.strokeDashoffset=295.3;$('#ss-step').textContent='Нажми «Начать», когда будешь готов. Сядь удобно.';$('#ss-sub').textContent='';$('#breath').classList.remove('in');$('#ss-start').textContent='Начать'}
+$('#ss-stop').addEventListener('click',stopSession);
+$('#ss-start').addEventListener('click',()=>{if(ssT)return;const sc=S.scenes[$('#ss-scene').value]||{};
+  const fill=t=>t.replace('{wish}',sc.wish?('«'+sc.wish+'». Что это говорит о тебе? '+(sc.imply||'')):'Выбери одно желание. Спроси: если бы оно уже исполнилось, что бы это говорило обо мне?').replace('{place}',sc.place?('Ты здесь: '+sc.place+'. Посмотри вокруг.'):'Где бы ты был, если бы это уже случилось? Окажись там. Посмотри вокруг.').replace('{sense}',sc.sense?sc.sense:'Что ты слышишь? Что держишь в руках? Кто рядом и что говорит?').replace('{iam}',sc.iam||'Я есть это. Я здесь.');
+  const total=STEPS.reduce((a,s)=>a+s[0],0);let t=0,idx=-1;
+  const bounds=[];STEPS.reduce((a,s)=>{bounds.push(a);return a+s[0]},0);
+  const show=i=>{idx=i;$('#ss-step').textContent=STEPS[i][1];$('#ss-sub').textContent=fill(STEPS[i][2]);if($('#ss-sound').checked)tone(528)};
+  show(0);$('#ss-start').textContent='Идёт…';
+  ssT=setInterval(()=>{t++;const left=total-t;$('#ss-time').textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0');
+    $('#ring').style.strokeDashoffset=295.3*(1-t/total);$('#breath').classList.toggle('in',Math.floor(t/4)%2==0);
+    let ni=bounds.filter(b=>b<=t).length-1;if(ni!==idx)show(ni);
+    if(t>=total){clearInterval(ssT);ssT=null;show(STEPS.length-1);$('#ss-start').textContent='Начать снова';$('#breath').classList.remove('in');markDay();S.seeds[today()]=(S.seeds[today()]||0)+1;save();toast('Сессия засчитана в трекер')}},1000)});
+/* yes */
+let yesN=0;const YESQ=['А как это случится?','А заслужил ли я?','А если нет?','А когда?','А что скажут люди?','Это слишком хорошо, чтобы быть правдой?','А вдруг я себя обманываю?'];
+$('#yes-btn').addEventListener('click',()=>{yesN++;const w=$('#yes-wish').value.trim()||'моё желание';$('#yes-cnt').textContent=yesN+' раз сказано «да»';
+  $('#yes-q').innerHTML=yesN%2?`<span class="muted" style="font-size:20px">Рассудок спрашивает:</span><br>${YESQ[(yesN>>1)%YESQ.length]}`:`«${esc(w)}». <span style="color:var(--lime)">Да.</span>`;
+  if(yesN==10){markDay();toast('Десять «да». Достаточно на сегодня')}});
+/* notam */
+let notamI=0,notamList=[...NOTAM];
+function renderNotam(){$('#notam').innerHTML=notamList.map((t,i)=>`<div class="row ${i<notamI?'done show':''} ${i==notamI?'show':''}"><span class="k">${i<notamI?'✓':i+1}</span><span>${esc(t)}</span></div>`).join('')+(notamI>=notamList.length?'<div class="tip" style="margin-top:8px"><h4>Что осталось</h4><p>Без всех ярлыков остаётся чистое «Я ЕСМЬ». Из этого места войди в состояние, которое выбираешь.</p></div>':'')}
+$('#notam-next').addEventListener('click',()=>{if(notamI<notamList.length){notamI++;renderNotam();if(notamI==notamList.length)markDay()}});
+$('#notam-reset').addEventListener('click',()=>{notamI=0;renderNotam()});
+$('#notam-addbtn').addEventListener('click',()=>{let v=$('#notam-add').value.trim();if(!v)return;if(!/^я не/i.test(v))v='Я не '+v.replace(/^я\s+/i,'');if(!/[.!]$/.test(v))v+='.';notamList.push(v);$('#notam-add').value='';renderNotam()});
+/* god */
+let godI=0,godW='Бог';
+const fem=s=>s.replace(/^Стал бы/,'Стала бы').replace(/^Чувствовал бы \{g\} себя застрявшим/,'Чувствовала бы {g} себя застрявшей').replace(/^Позволил/,'Позволила').replace(/^Искал/,'Искала').replace(/^Испытывал/,'Испытывала').replace(/^Был бы \{g\} рабом/,'Была бы {g} рабой').replace(/^Был бы \{g\} всецело милостив и щедр/,'Была бы {g} всецело милостива и щедра').replace(/^Верил/,'Верила').replace(/^Боялся/,'Боялась').replace(/^Любил/,'Любила');
+function renderGod(){const q=godW=='Бог'?GODQ[godI]:fem(GODQ[godI]);$('#god-q').textContent=q.replace('{g}',godW);$('#god-cnt').textContent=(godI+1)+' из '+GODQ.length;$('#god-a').textContent='';$('#god-next').textContent=godI==GODQ.length-1?'Завершить':'Дальше'}
+$('#god-ans').addEventListener('click',()=>{let a=GODA[godI];if(godW!='Бог')a=a.replace('не стал бы','не стала бы');$('#god-a').textContent=a});
+$('#god-next').addEventListener('click',()=>{if(godI<GODQ.length-1){godI++;renderGod()}else{$('#god-q').textContent=`Посмотри, какая перспектива у ${godW=='Бог'?'Бога':'любви'}. Это и твоя перспектива. Позволь лёгкости и бесстрашию охватить тебя.`;$('#god-a').textContent='';$('#god-cnt').textContent='Готово';godI=0;$('#god-next').textContent='Пройти ещё раз';markDay()}});
+$$('[data-word]').forEach(b=>b.addEventListener('click',()=>{godW=b.dataset.word;$$('[data-word]').forEach(x=>x.style.borderColor=x==b?'var(--gold)':'');godI=0;renderGod()}));
+$('#w-god').style.borderColor='var(--gold)';
+/* journal */
+const NOMS={'тревога':'моя','усталость':'моя','надежда':'моя','печаль':'моя','радость':'моя','злость':'моя','любовь':'моя','тоска':'моя','обида':'моя','вина':'моя','зависть':'моя','боль':'моя','ревность':'моя','благодарность':'моя','скука':'моя','лень':'моя','грусть':'моя','нежность':'моя','апатия':'моя','паника':'моя','неуверенность':'моя','уверенность':'моя','бедность':'моя','нехватка':'моя','свобода':'моя','сила':'моя','слабость':'моя','горечь':'моя','пустота':'моя'};
+function poss(w){w=w.toLowerCase();if(NOMS[w])return 'моя';if(/(ость|ь)$/.test(w)&&!/(тель|день|гнев)$/.test(w))return 'моя';if(/[ая]$/.test(w))return 'моя';if(/(ие|ье|о|е)$/.test(w))return 'моё';if(/[ыи]$/.test(w))return 'мои';return 'мой'}
+function jrBuild(){const ws=$('#jr-in').value.split(/[,;\n]/).map(s=>s.trim()).filter(Boolean);if(!ws.length)return '';
+  return ws.map(w=>`<span class="who">Кто ${poss(w)} ${esc(w.toLowerCase())}?</span> <span class="ans">Я ЕСМЬ.</span>`).join('<br>')+'<br><br><span class="who">Раз я создатель этого, я могу убрать себя из того, что не нужно, и с тем же правом войти в то, что выбираю.</span>'}
+$('#jr-go').addEventListener('click',()=>{const h=jrBuild();if(!h){toast('Впиши хотя бы одно чувство');return}$('#jr-out').innerHTML=h;$('#jr-out').style.display='block'});
+$('#jr-save').addEventListener('click',()=>{const h=jrBuild();if(!h)return;S.journal.push({d:new Date().toISOString(),h});markDay();save();renderLists();toast('Запись сохранена')});
+/* rewrite */
+$('#rw-save').addEventListener('click',()=>{const x={d:new Date().toISOString(),who:$('#rw-who').value.trim(),old:$('#rw-old').value.trim(),nw:$('#rw-new').value.trim()};if(!x.nw){toast('Впиши новую версию');return}S.rewrites.push(x);markDay();save();renderLists();['#rw-who','#rw-old','#rw-new'].forEach(i=>$(i).value='');toast('Сохранено. Вечером проживи новую версию')});
+/* give */
+$('#gv-self').addEventListener('input',e=>{const v=e.target.value;if(!v.trim()){$('#gv-check').innerHTML='';return}
+  const f=[];if(!/^\s*я(?![а-яё])/i.test(v))f.push('Начни с «Я». Ты даёшь это себе сам.');if(W('когда|если|после того|как только').test(v))f.push('Здесь есть условие. Убери «когда» и «если».');if(W('он|она|они|его|её|ее|их|ему|ей|им').test(v))f.push('Другой человек всё ещё в фразе. Оставь только себя.');
+  $('#gv-check').innerHTML=f.length?f.map(x=>`<div class="flag">${x}</div>`).join(''):'<div class="flag ok">Теперь это не зависит ни от кого.</div>'});
+$('#gv-save').addEventListener('click',()=>{const x={d:new Date().toISOString(),who:$('#gv-who').value.trim(),want:$('#gv-want').value.trim(),self:$('#gv-self').value.trim()};if(!x.self){toast('Заполни последнее поле');return}S.gives.push(x);markDay();save();renderLists();['#gv-who','#gv-want','#gv-self'].forEach(i=>$(i).value='');$('#gv-check').innerHTML=''});
+/* duck */
+$('#dk-save').addEventListener('click',()=>{const x={d:new Date().toISOString(),obj:$('#dk-obj').value.trim(),det:$('#dk-det').value.trim(),got:null};if(!x.obj){toast('Назови предмет');return}S.ducks.push(x);markDay();save();renderLists();$('#dk-obj').value='';$('#dk-det').value='';toast('Эксперимент начат. Теперь забудь о нём')});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-got]');if(!b)return;const x=S.ducks[+b.dataset.got];x.got=new Date().toISOString();save();renderLists();toast('Отлично. Запиши это и в журнал проверок')});
+/* vent */
+$('#vt-burn').addEventListener('click',()=>{const t=$('#vt-in');if(!t.value.trim())return;t.classList.add('burn');setTimeout(()=>{t.value='';t.classList.remove('burn');$('#vt-after').style.display='block';$('#vt-aim').focus()},1600)});
+$('#vt-toscene').addEventListener('click',()=>{$('#sc-wish').value=$('#vt-aim').value;location.hash='#practice/scene'});
+/* log */
+$('#lg-date').value=today();
+$('#lg-save').addEventListener('click',()=>{const t=$('#lg-txt').value.trim();if(!t)return;S.log.push({d:new Date($('#lg-date').value||today()).toISOString(),type:$('#lg-type').value,t});S.log.sort((a,b)=>a.d<b.d?-1:1);save();renderLists();$('#lg-txt').value='';toast('Добавлено')});
+
+function renderLists(){
+  list('#sc-list',S.scenes,x=>`${x.wish?`<p><b>Желание:</b> ${esc(x.wish)}</p>`:''}${x.imply?`<p><b>Обо мне:</b> ${esc(x.imply)}</p>`:''}${x.place?`<p><b>Где:</b> ${esc(x.place)}</p>`:''}${x.sense?`<p><b>Детали:</b> ${esc(x.sense)}</p>`:''}${x.iam?`<p style="color:var(--pink);font-weight:600">${esc(x.iam)}</p>`:''}`,'scenes');
+  list('#jr-list',S.journal,x=>`<div style="line-height:1.8">${x.h}</div>`,'journal');
+  list('#rw-list',S.rewrites,x=>`<p><b>${esc(x.who)||'Собеседник'}</b></p><div class="rewrite open" style="margin-top:6px"><div class="old">${esc(x.old)||'…'}</div><div class="new">${esc(x.nw)}</div></div>`,'rewrites');
+  list('#gv-list',S.gives,x=>`<p class="muted">От: ${esc(x.who)||'…'}. Ждал: ${esc(x.want)||'…'}</p><p style="color:var(--violet);font-weight:600">${esc(x.self)}</p>`,'gives');
+  list('#dk-list',S.ducks,x=>{const days=Math.floor(((x.got?new Date(x.got):new Date())-new Date(x.d))/864e5);return `<p><b>${esc(x.obj)}</b>${x.det?' · '+esc(x.det):''}</p><p class="muted">${x.got?`Появился через ${days} дн. (${fmt(x.got)})`:`Идёт ${days} дн.`}</p>${x.got?'':`<button class="btn btn-ghost btn-sm" data-got="${S.ducks.indexOf(x)}">Предмет появился</button>`}`},'ducks');
+  list('#lg-list',S.log,x=>`<p><b style="color:var(--gold)">${esc(x.type)}</b></p><p>${esc(x.t)}</p>`,'log');
+}
+/* tracker */
+function renderTracker(){
+  const cal=$('#cal');let h='';const now=new Date();
+  for(let i=29;i>=0;i--){const d=new Date(now);d.setDate(now.getDate()-i);const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    const on=S.days[k]||S.seeds[k];h+=`<button data-day="${k}" class="${on?'on':''} ${i==0?'today':''}" title="${d.toLocaleDateString('ru-RU')}">${d.getDate()}</button>`}
+  cal.innerHTML=h;
+  let streak=0;for(let i=0;;i++){const d=new Date(now);d.setDate(now.getDate()-i);const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');if(S.days[k]||S.seeds[k])streak++;else if(i>0||true){if(i==0)continue;break}}
+  $('#st-streak').textContent=streak;$('#st-days').textContent=$$('#cal button.on').length;
+  const sd=S.seeds[today()]||0;$('#st-seeds').textContent=sd;$('#st-all').textContent=Object.values(S.seeds).reduce((a,b)=>a+b,0);
+  $('#seed-row').innerHTML=sd?'🌱'.repeat(Math.min(sd,60)):'<span class="muted" style="font-size:15px">Сегодня пока ни одного</span>';
+}
+$('#cal').addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(!b)return;const k=b.dataset.day;if(S.days[k]){delete S.days[k];delete S.seeds[k]}else S.days[k]=1;save();renderTracker()});
+$('#seed').addEventListener('click',()=>{S.seeds[today()]=(S.seeds[today()]||0)+1;S.days[today()]=1;save();renderTracker()});
+$('#seed-undo').addEventListener('click',()=>{const k=today();if(S.seeds[k]){S.seeds[k]--;if(!S.seeds[k])delete S.seeds[k]}save();renderTracker()});
+/* glossary */
+function renderGl(q=''){q=q.toLowerCase();$('#gl').innerHTML=GLOSS.filter(g=>(g[0]+g[1]).toLowerCase().includes(q)).map((g,i)=>`<div class="card" style="--acc:${['var(--violet)','var(--pink)','var(--cyan)','var(--amber)','var(--lime)','var(--blue)','var(--gold)','var(--rose)'][i%8]}"><h4>${g[0]}</h4><p>${g[1]}</p></div>`).join('')||'<p class="empty">Ничего не нашлось.</p>'}
+$('#gl-search').addEventListener('input',e=>renderGl(e.target.value));
+/* data io */
+$('#exp').addEventListener('click',()=>{const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='tsarstvo-'+today()+'.json';a.click()});
+$('#imp').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);S=Object.assign({},def,d);save();renderLists();lessonCards();toast('Данные загружены')}catch(err){toast('Файл не читается')}};r.readAsText(f)});
+$('#wipe').addEventListener('click',()=>{if(!confirm('Стереть все записи и прогресс?'))return;S=JSON.parse(JSON.stringify(def));save();renderLists();lessonCards();toast('Всё стёрто')});
+
+lessonCards();renderLists();renderGl();renderNotam();renderGod();route();
+})();
+</script>
+</body>
+</html>
